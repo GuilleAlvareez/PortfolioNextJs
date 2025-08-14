@@ -12,11 +12,11 @@ export default function Home() {
     <main className="min-h-screen">
       <NavBar />
       
-      <SectionWrapper id="hero" title="">
+      <SectionWrapper id="hero" title=''>
         <Hero />
       </SectionWrapper>
       
-      <SectionWrapper id="about" title="Sobre Mí">
+      <SectionWrapper id="hero" title=''>
         <About />
       </SectionWrapper>
       

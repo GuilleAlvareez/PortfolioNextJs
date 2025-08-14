@@ -1,9 +1,21 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState, } from 'react'
 
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrollY, setScrollY] = useState(0)
+
+  const handleScroll = () => {
+    setScrollY(window.scrollY)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const navItems = [
     { href: '#hero', label: 'Inicio' },
@@ -15,11 +27,11 @@ export default function NavBar() {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-sm z-50 border-b border-gray-800">
+    <nav className={`fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-sm z-50 border-b border-gray-800 transition-all duration-300 ${scrollY !== 0 ? 'opacity-100 translate-y-0' : '-translate-y-full'}`}>
       <div className="max-w-4xl mx-auto flex justify-between items-center p-4">
         {/* Logo/Name */}
         <span className="font-bold text-xl text-cyan-400">
-          Guillermo Álvarez
+          Portfolio
         </span>
 
         {/* Desktop Navigation */}

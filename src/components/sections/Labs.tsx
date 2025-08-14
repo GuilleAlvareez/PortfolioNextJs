@@ -56,15 +56,15 @@ export default function Labs() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {experiments.map((experiment, index) => (
-          <ProjectCard
-            key={index}
-            title={experiment.title}
-            description={experiment.description}
-            tags={experiment.tags}
-            link={experiment.link}
-          />
-        ))}
+        {/* {experiments.map((experiment, index) => ( */}
+          {/* // <ProjectCard */}
+          {/* //   key={index}
+          //   title={experiment.title}
+          //   description={experiment.description}
+          //   tags={experiment.tags}
+          //   link={experiment.link}
+          // />
+        // ))} */}
       </div>
       
       <div className="bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg p-6 border border-gray-600">
