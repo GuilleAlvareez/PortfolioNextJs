@@ -20,7 +20,7 @@ export default function Home() {
         <About />
       </SectionWrapper>
       
-      <SectionWrapper id="projects" title="Proyectos">
+      <SectionWrapper id="projects" title="">
         <Projects />
       </SectionWrapper>
       
