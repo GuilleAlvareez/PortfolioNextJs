@@ -21,7 +21,7 @@ export default function Projects() {
   ];
 
   return (
-    <div className="space-y-8 max-w-screen-2xl mx-auto">
+    <div className="space-y-8 max-w-screen-2xl mx-auto mt-20">
       <div className="text-center mb-16 transition-all duration-1000 opacity-100 translate-y-0">
         <h2 className="h-24 text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent ">
           Proyectos

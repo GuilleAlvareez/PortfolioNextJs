@@ -151,9 +151,9 @@ export default function Contact() {
 
       <div className="relative">
         <div className="text-center space-y-6 mb-7">
-          <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4">
             ¿Tienes un proyecto en mente?
-          </h3>
+          </h2>
           <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
             Estoy abierto a nuevas oportunidades laborales, colaboraciones en proyectos
             interesantes o simplemente charlar sobre tecnología y desarrollo web.
@@ -316,7 +316,7 @@ export default function Contact() {
 
         <div className="text-center pt-8 border-t border-gray-700">
           <p className="text-gray-400 text-sm">
-            © 2024 Guillermo Álvarez Moreno. Desarrollado con ❤️ usando Next.js y Tailwind CSS desde Sevilla.
+            © 2025 Guillermo Álvarez Moreno. Desarrollado con Next.js y Tailwind CSS.
           </p>
         </div>
       </div>

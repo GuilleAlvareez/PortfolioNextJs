@@ -16,21 +16,21 @@ export default function Home() {
         <Hero />
       </SectionWrapper>
       
-      <SectionWrapper id="hero" title=''>
+      <div id="about" title='' className='w-full mx-auto space-y-8'>
         <About />
-      </SectionWrapper>
+      </div>
       
       <SectionWrapper id="projects" title="">
         <Projects />
       </SectionWrapper>
       
-      <SectionWrapper id="experience" title="Trayectoria">
+      <SectionWrapper id="experience" title="">
         <Experience />
       </SectionWrapper>
       
-      {/* <SectionWrapper id="labs" title="Laboratorio">
+      {/* <SectionWrapper id="labs" title="">
         <Labs />
-      </SectionWrapper> */}
+      </SectionWrapper>*/}
       
       <SectionWrapper id="contact" title="">
         <Contact />
