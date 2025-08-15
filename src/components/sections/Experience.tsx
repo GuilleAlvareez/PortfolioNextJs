@@ -1,6 +1,30 @@
+"use client";
 import Image from "next/image";
+import { useState, useEffect } from 'react';
 
 export default function Experience() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Hook para la animación de entrada
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const element = document.getElementById('experience-section');
+    if (element) observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
   const experiences = [
     {
       date: "Mar 2025 - Jun 2025",
@@ -21,8 +45,8 @@ export default function Experience() {
   ];
 
   return (
-    <div className="space-y-12 mt-24 max-w-screen-2xl mx-auto">
-      <div className="text-center mb-20 space-y-4">
+    <div id="experience-section" className="space-y-12 mt-24 max-w-screen-2xl mx-auto">
+      <div className={`text-center mb-20 space-y-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         {" "}
         {/* Más espacio abajo y entre elementos */}
         <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter">
@@ -42,9 +66,10 @@ export default function Experience() {
           {experiences.map((experience, index) => (
             <div
               key={index}
-              className={`relative flex group timeline-item ${
+              className={`relative flex group timeline-item transition-all duration-1000 ${
                 index % 2 === 0 ? "md:justify-start" : "md:justify-end"
-              } group`}
+              } group ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+              style={{ transitionDelay: `${(index + 1) * 200}ms` }}
             >
               {/* Punto en la línea temporal */}
               <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full border-4 border-gray-900 z-10 transition-all duration-300 group-hover:scale-125 group-hover:shadow-lg group-hover:shadow-cyan-400/50"></div>
@@ -94,7 +119,7 @@ export default function Experience() {
       </div>
 
       {/* Carta de recomendación sin card */}
-      <div className="max-w-5xl mx-auto px-4 py-16">
+      <div className={`max-w-5xl mx-auto px-4 py-16 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="bg-gradient-to-br from-gray-900 to-gray-800/50 border border-secondary rounded-2xl p-8 md:p-12 shadow-2xl">
           {/* Encabezado */}
           <div className="flex items-center gap-4 mb-8">

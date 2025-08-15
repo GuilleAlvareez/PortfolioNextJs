@@ -1,6 +1,30 @@
+"use client";
 import ProjectCard from '@/components/ui/ProjectCard'
+import { useState, useEffect } from 'react';
 
 export default function Labs() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Hook para la animación de entrada
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const element = document.getElementById('labs-section');
+    if (element) observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
   const experiments = [
     {
       title: 'Astro Performance Experiments',
@@ -41,8 +65,8 @@ export default function Labs() {
   ]
 
   return (
-    <div className="space-y-8">
-      <div className="text-center mb-20 space-y-4">
+    <div id="labs-section" className="space-y-8">
+      <div className={`text-center mb-20 space-y-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         {" "}
         {/* Más espacio abajo y entre elementos */}
         <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter">
@@ -60,7 +84,7 @@ export default function Labs() {
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         {/* {experiments.map((experiment, index) => ( */}
           {/* // <ProjectCard */}
           {/* //   key={index}
@@ -72,7 +96,7 @@ export default function Labs() {
         // ))} */}
       </div>
       
-      <div className="bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg p-6 border border-gray-600">
+      <div className={`bg-gradient-to-r from-gray-800 to-gray-700 rounded-lg p-6 border border-gray-600 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h3 className="text-xl font-semibold text-cyan-400 mb-4">
           🧪 Próximos experimentos
         </h3>

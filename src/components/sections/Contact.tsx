@@ -23,6 +23,27 @@ export default function Contact() {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationType, setNotificationType] = useState<'success' | 'error'>('success');
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Hook para la animación de entrada
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const element = document.getElementById('contact-section');
+    if (element) observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
 
   // Función para mostrar notificación
   const showNotificationMessage = (message: string, type: 'success' | 'error') => {
@@ -56,7 +77,7 @@ export default function Contact() {
       icon: Github,
       label: 'GitHub',
       value: '@GuilleAlvareez',
-      href: 'https://github.com/guillealvarez',
+      href: 'https://github.com/GuilleAlvareez',
       description: 'Revisa mi código'
     },
     {
@@ -151,7 +172,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="space-y-12 mt-24 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8">
+    <div id="contact-section" className="space-y-12 mt-24 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8">
       {/* Notificación Toast */}
       {showNotification && (
         <div className="fixed top-4 right-4 z-50 transform transition-all duration-500 ease-out">
@@ -183,7 +204,7 @@ export default function Contact() {
       )}
 
       <div className="relative">
-        <div className="text-center space-y-6 mb-7">
+        <div className={`text-center space-y-6 mb-7 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4">
             ¿Tienes un proyecto en mente?
           </h2>
@@ -194,7 +215,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
+        <div className={`grid grid-cols-1 xl:grid-cols-2 gap-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Métodos de contacto directo */}
           <div className="space-y-6">
             <h4 className="text-xl font-semibold text-cyan-300 mb-6">Contacto directo</h4>
@@ -335,7 +356,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-cyan-500/10 to-teal-500/10 backdrop-blur-sm rounded-lg p-8 border mt-12 border-cyan-400/20">
+        <div className={`bg-gradient-to-r from-cyan-500/10 to-teal-500/10 backdrop-blur-sm rounded-lg p-8 border mt-12 border-cyan-400/20 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="text-center space-y-4">
             <h4 className="text-lg font-semibold text-cyan-300">
               💡 Respuesta rápida garantizada
@@ -347,7 +368,7 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="text-center pt-8 border-t border-gray-700">
+        <div className={`text-center pt-8 border-t border-gray-700 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <p className="text-gray-400 text-sm">
             © 2025 Guillermo Álvarez Moreno. Desarrollado con Next.js y Tailwind CSS.
           </p>

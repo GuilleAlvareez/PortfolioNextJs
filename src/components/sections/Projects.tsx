@@ -1,6 +1,30 @@
+"use client";
 import Image from "next/image";
+import { useState, useEffect } from 'react';
 
 export default function Projects() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  // Hook para la animación de entrada
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    const element = document.getElementById('projects-section');
+    if (element) observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
   const projects = [
     {
       title: "ThunderMail",
@@ -21,8 +45,8 @@ export default function Projects() {
   ];
 
   return (
-    <div className="max-w-screen-2xl mx-auto mt-20">
-      <div className="text-center mb-16 transition-all duration-1000 opacity-100 translate-y-0">
+    <div id="projects-section" className="max-w-screen-2xl mx-auto mt-20">
+      <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="h-24 text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent ">
           Proyectos
         </h2>
@@ -37,7 +61,7 @@ export default function Projects() {
       {/* Layout mejorado con mayor espacio para las cards */}
       <div className="space-y-16 max-w-full mx-auto px-4">
         {/* Primer proyecto - Imagen a la derecha */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16 group">
+        <div className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 group transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Info proyecto (lado izquierdo, más ancha) */}
           <div className="flex-1 lg:max-w-3xl transform transition-all duration-500 group-hover:translate-x-2">
             <div className="p-8 rounded-lg h-full">
@@ -86,7 +110,7 @@ export default function Projects() {
         </div>
 
         {/* Segundo proyecto - Imagen a la izquierda */}
-        <div className="flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-16 group">
+        <div className={`flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-16 group transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Info proyecto (lado derecho) */}
           <div className="flex-1 lg:max-w-3xl lg:ml-5 transform transition-all duration-500 group-hover:-translate-x-2">
             <div className="p-8 rounded-lg h-full">
@@ -133,7 +157,7 @@ export default function Projects() {
         </div>
       </div>
       
-      <div className="text-center pt-16">
+      <div className={`text-center pt-16 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <a
           href="https://github.com/GuilleAlvareez"
           target="_blank"
