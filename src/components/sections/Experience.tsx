@@ -45,26 +45,26 @@ export default function Experience() {
   ];
 
   return (
-    <div id="experience-section" className="space-y-12 mt-24 max-w-screen-2xl mx-auto">
+    <section id="experience-section" className="space-y-12 mt-24 max-w-screen-2xl mx-auto" aria-labelledby="experience-title">
       <div className={`text-center mb-20 space-y-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         {" "}
         {/* Más espacio abajo y entre elementos */}
-        <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter">
+        <h2 id="experience-title" className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter">
           Trayectoria
         </h2>
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
           Una combinación de formación académica sólida y experiencia práctica
-          que define mi perfil como desarrollador.
+          que define mi perfil como desarrollador fullstack en Sevilla.
         </p>
       </div>
       
       {/* Timeline sin cards */}
       <div className="relative max-w-5xl mx-auto px-4">
         {/* Línea vertical principal */}
-        <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-cyan-400 via-blue-400 to-teal-400 rounded-full timeline-line"></div>
+        <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full bg-gradient-to-b from-cyan-400 via-blue-400 to-teal-400 rounded-full timeline-line" aria-hidden="true"></div>
         <div className="space-y-16 timeline-container">
           {experiences.map((experience, index) => (
-            <div
+            <article
               key={index}
               className={`relative flex group timeline-item transition-all duration-1000 ${
                 index % 2 === 0 ? "md:justify-start" : "md:justify-end"
@@ -72,7 +72,7 @@ export default function Experience() {
               style={{ transitionDelay: `${(index + 1) * 200}ms` }}
             >
               {/* Punto en la línea temporal */}
-              <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full border-4 border-gray-900 z-10 transition-all duration-300 group-hover:scale-125 group-hover:shadow-lg group-hover:shadow-cyan-400/50"></div>
+              <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full border-4 border-gray-900 z-10 transition-all duration-300 group-hover:scale-125 group-hover:shadow-lg group-hover:shadow-cyan-400/50" aria-hidden="true"></div>
 
               {/* Contenido de experiencia */}
               <div
@@ -93,7 +93,7 @@ export default function Experience() {
                         : "bg-gradient-to-r from-blue-500/20 to-cyan-500/20 text-blue-400 border border-blue-500/30"
                     }`}
                   >
-                    {experience.type === "work" ? "💼" : "🎓"} {experience.date}
+                    <span aria-hidden="true">{experience.type === "work" ? "💼" : "🎓"}</span> {experience.date}
                   </span>
                 </div>
 
@@ -104,7 +104,7 @@ export default function Experience() {
 
                 {/* Empresa */}
                 <h4 className="text-xl text-gray-300 font-semibold mb-6 flex items-center gap-3">
-                  <span className="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                  <span className="w-2 h-2 bg-cyan-400 rounded-full" aria-hidden="true"></span>
                   {experience.company}
                 </h4>
 
@@ -113,7 +113,7 @@ export default function Experience() {
                   {experience.description}
                 </p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
@@ -125,9 +125,10 @@ export default function Experience() {
           <div className="flex items-center gap-4 mb-8">
             <Image
               src="/surlabs-logo.png"
-              alt="SURLABS Logo"
+              alt="Logo de SURLABS - Empresa de desarrollo de software"
               width={48}
               height={48}
+              priority={false}
             />
             <div>
               <h3 className="text-2xl font-bold text-white">
@@ -140,9 +141,9 @@ export default function Experience() {
           {/* Cita y Autores */}
           <blockquote className="relative pl-6 border-l-2 border-accent mb-8">
             <p className="text-gray-200 text-lg italic leading-relaxed">
-              "Recomendamos encarecidamente a Guillermo por su profesionalidad,
+              &ldquo;Recomendamos encarecidamente a Guillermo por su profesionalidad,
               responsabilidad y compromiso. Destacamos su proactividad,
-              capacidad de trabajo en equipo y disposición para aprender."
+              capacidad de trabajo en equipo y disposición para aprender.&rdquo;
             </p>
           </blockquote>
           <div className="flex flex-wrap gap-x-8 gap-y-2 mb-10 pl-6">
@@ -177,6 +178,7 @@ export default function Experience() {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -191,6 +193,6 @@ export default function Experience() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

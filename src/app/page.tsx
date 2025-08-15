@@ -13,26 +13,32 @@ export default function Home() {
     <main className="min-h-screen">
       <NavBar />
       
+      {/* Hero Section - Contiene el único H1 */}
       <SectionWrapper id="hero" title=''>
         <Hero />
       </SectionWrapper>
       
-      <div id="about" title='' className='w-full mx-auto space-y-8'>
+      {/* About Section */}
+      <section id="about" className='w-full mx-auto space-y-8'>
         <About />
-      </div>
+      </section>
 
+      {/* Projects Section */}
       <SectionWrapper id="projects" title="">
         <Projects />
       </SectionWrapper>
       
+      {/* Experience Section */}
       <SectionWrapper id="experience" title="">
         <Experience />
       </SectionWrapper>
       
-      <div id="labs" title="" className='w-full mx-auto mb-30'>
+      {/* Skills Section */}
+      <section id="skills" className='w-full mx-auto mb-30'>
         <Skills />
-      </div>
+      </section>
       
+      {/* Contact Section */}
       <SectionWrapper id="contact" title="">
         <Contact />
       </SectionWrapper>

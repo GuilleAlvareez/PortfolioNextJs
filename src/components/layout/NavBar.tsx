@@ -17,30 +17,54 @@ export default function NavBar() {
     }
   }, [])
 
+  // Cerrar menú móvil al presionar Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isMenuOpen) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    if (isMenuOpen) {
+      document.addEventListener('keydown', handleEscape)
+      return () => document.removeEventListener('keydown', handleEscape)
+    }
+  }, [isMenuOpen])
+
   const navItems = [
     { href: '#hero', label: 'Inicio' },
     { href: '#about', label: 'Sobre Mí' },
     { href: '#projects', label: 'Proyectos' },
     { href: '#experience', label: 'Trayectoria' },
-    { href: '#labs', label: 'Laboratorio' },
+    { href: '#skills', label: 'Habilidades' },
     { href: '#contact', label: 'Contacto' },
   ]
 
   return (
-    <nav className={`fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-sm z-50 border-b border-gray-800 transition-all duration-300 ${scrollY !== 0 ? 'opacity-100 translate-y-0' : '-translate-y-full'}`}>
+    <nav 
+      className={`fixed top-0 left-0 w-full bg-gray-900/80 backdrop-blur-sm z-50 border-b border-gray-800 transition-all duration-300 ${scrollY !== 0 ? 'opacity-100 translate-y-0' : '-translate-y-full'}`}
+      role="navigation"
+      aria-label="Navegación principal"
+    >
       <div className="max-w-4xl mx-auto flex justify-between items-center p-4">
         {/* Logo/Name */}
-        <span className="font-bold text-xl text-cyan-400">
+        <a 
+          href="#hero" 
+          className="font-bold text-xl text-cyan-400 hover:text-cyan-300 transition-colors"
+          aria-label="Ir al inicio del portfolio"
+        >
           Portfolio
-        </span>
+        </a>
 
         {/* Desktop Navigation */}
-        <ul className="hidden md:flex space-x-6">
-          {navItems.map((item) => (
-            <li key={item.href}>
+        <ul className="hidden md:flex space-x-6" role="menubar">
+          {navItems.map((item, index) => (
+            <li key={item.href} role="none">
               <a
                 href={item.href}
-                className="text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium"
+                className="text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2 py-1"
+                role="menuitem"
+                tabIndex={0}
               >
                 {item.label}
               </a>
@@ -50,15 +74,18 @@ export default function NavBar() {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-gray-300 hover:text-cyan-400 transition-colors"
+          className="md:hidden text-gray-300 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded p-1"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
+          aria-label={isMenuOpen ? "Cerrar menú de navegación" : "Abrir menú de navegación"}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
         >
           <svg
             className="w-6 h-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             {isMenuOpen ? (
               <path
@@ -81,14 +108,21 @@ export default function NavBar() {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gray-900/95 backdrop-blur-sm border-t border-gray-800">
+        <div 
+          id="mobile-menu"
+          className="md:hidden bg-gray-900/95 backdrop-blur-sm border-t border-gray-800"
+          role="menu"
+          aria-labelledby="mobile-menu-button"
+        >
           <ul className="px-4 py-2 space-y-2">
-            {navItems.map((item) => (
-              <li key={item.href}>
+            {navItems.map((item, index) => (
+              <li key={item.href} role="none">
                 <a
                   href={item.href}
-                  className="block py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium"
+                  className="block py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2"
                   onClick={() => setIsMenuOpen(false)}
+                  role="menuitem"
+                  tabIndex={0}
                 >
                   {item.label}
                 </a>

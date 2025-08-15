@@ -172,10 +172,15 @@ export default function Contact() {
   };
 
   return (
-    <div id="contact-section" className="space-y-12 mt-24 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8">
+    <section id="contact-section" className="space-y-12 mt-24 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8" aria-labelledby="contact-title">
       {/* Notificación Toast */}
       {showNotification && (
-        <div className="fixed top-4 right-4 z-50 transform transition-all duration-500 ease-out">
+        <div 
+          className="fixed top-4 right-4 z-50 transform transition-all duration-500 ease-out"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
           <div className={`flex items-center space-x-3 p-4 rounded-lg shadow-lg border-l-4 ${
             notificationType === 'success' 
               ? 'bg-green-900/90 border-green-400 text-green-100' 
@@ -183,9 +188,9 @@ export default function Contact() {
           } backdrop-blur-sm`}>
             <div className="flex-shrink-0">
               {notificationType === 'success' ? (
-                <CheckCircle className="w-5 h-5 text-green-400" />
+                <CheckCircle className="w-5 h-5 text-green-400" aria-hidden="true" />
               ) : (
-                <X className="w-5 h-5 text-red-400" />
+                <X className="w-5 h-5 text-red-400" aria-hidden="true" />
               )}
             </div>
             <div className="flex-1 min-w-0">
@@ -196,8 +201,9 @@ export default function Contact() {
             <button
               onClick={() => setShowNotification(false)}
               className="flex-shrink-0 text-gray-300 hover:text-white transition-colors"
+              aria-label="Cerrar notificación"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -205,7 +211,7 @@ export default function Contact() {
 
       <div className="relative">
         <div className={`text-center space-y-6 mb-7 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4">
+          <h2 id="contact-title" className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4">
             ¿Tienes un proyecto en mente?
           </h2>
           <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
@@ -218,7 +224,7 @@ export default function Contact() {
         <div className={`grid grid-cols-1 xl:grid-cols-2 gap-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Métodos de contacto directo */}
           <div className="space-y-6">
-            <h4 className="text-xl font-semibold text-cyan-300 mb-6">Contacto directo</h4>
+            <h3 className="text-xl font-semibold text-cyan-300 mb-6">Contacto directo</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {contactMethods.map((method, index) => {
                 const IconComponent = method.icon;
@@ -229,15 +235,16 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 border border-gray-700 hover:border-cyan-400 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-400/20 hover:bg-gray-800/70"
+                    aria-label={`Contactar por ${method.label}: ${method.value}`}
                   >
                     <div className="flex items-center space-x-3">
                       <div className="flex-shrink-0">
-                        <IconComponent className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform" />
+                        <IconComponent className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform" aria-hidden="true" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h5 className="text-sm font-semibold text-white group-hover:text-cyan-300 transition-colors">
+                        <h4 className="text-sm font-semibold text-white group-hover:text-cyan-300 transition-colors">
                           {method.label}
-                        </h5>
+                        </h4>
                         <p className="text-gray-300 text-xs truncate">
                           {method.value}
                         </p>
@@ -254,12 +261,12 @@ export default function Contact() {
 
           {/* Formulario de contacto */}
           <div className="space-y-6">
-            <h4 className="text-xl font-semibold text-cyan-300 mb-6">Envíame un mensaje</h4>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <h3 className="text-xl font-semibold text-cyan-300 mb-6">Envíame un mensaje</h3>
+            <form onSubmit={handleSubmit} className="space-y-6" aria-labelledby="contact-form-title">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
-                    <User className="inline w-4 h-4 mr-2" />
+                    <User className="inline w-4 h-4 mr-2" aria-hidden="true" />
                     Nombre *
                   </label>
                   <input
@@ -272,13 +279,16 @@ export default function Contact() {
                       errors.name ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
                     }`}
                     placeholder="Tu nombre completo"
+                    aria-describedby={errors.name ? 'name-error' : undefined}
+                    aria-invalid={!!errors.name}
+                    required
                   />
-                  {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
+                  {errors.name && <p id="name-error" className="text-red-400 text-sm mt-1" role="alert">{errors.name}</p>}
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
-                    <Mail className="inline w-4 h-4 mr-2" />
+                    <Mail className="inline w-4 h-4 mr-2" aria-hidden="true" />
                     Email *
                   </label>
                   <input
@@ -291,14 +301,17 @@ export default function Contact() {
                       errors.email ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
                     }`}
                     placeholder="tu@email.com"
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                    aria-invalid={!!errors.email}
+                    required
                   />
-                  {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
+                  {errors.email && <p id="email-error" className="text-red-400 text-sm mt-1" role="alert">{errors.email}</p>}
                 </div>
               </div>
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-200 mb-2">
-                  <MessageSquare className="inline w-4 h-4 mr-2" />
+                  <MessageSquare className="inline w-4 h-4 mr-2" aria-hidden="true" />
                   Asunto *
                 </label>
                 <input
@@ -311,13 +324,16 @@ export default function Contact() {
                     errors.subject ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
                   }`}
                   placeholder="¿De qué quieres hablar?"
+                  aria-describedby={errors.subject ? 'subject-error' : undefined}
+                  aria-invalid={!!errors.subject}
+                  required
                 />
-                {errors.subject && <p className="text-red-400 text-sm mt-1">{errors.subject}</p>}
+                {errors.subject && <p id="subject-error" className="text-red-400 text-sm mt-1" role="alert">{errors.subject}</p>}
               </div>
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-200 mb-2">
-                  <MessageSquare className="inline w-4 h-4 mr-2" />
+                  <MessageSquare className="inline w-4 h-4 mr-2" aria-hidden="true" />
                   Mensaje *
                 </label>
                 <textarea
@@ -330,24 +346,29 @@ export default function Contact() {
                     errors.message ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
                   }`}
                   placeholder="Cuéntame sobre tu proyecto, idea o cualquier consulta que tengas..."
+                  aria-describedby={errors.message ? 'message-error' : 'message-help'}
+                  aria-invalid={!!errors.message}
+                  required
                 />
-                {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
-                <p className="text-gray-400 text-xs mt-1">Mínimo 10 caracteres</p>
+                {errors.message && <p id="message-error" className="text-red-400 text-sm mt-1" role="alert">{errors.message}</p>}
+                <p id="message-help" className="text-gray-400 text-xs mt-1">Mínimo 10 caracteres</p>
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
                 className="w-full bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 disabled:from-gray-600 disabled:to-gray-700 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transform flex items-center justify-center space-x-2"
+                aria-describedby={isSubmitting ? 'submitting-status' : undefined}
               >
                 {isSubmitting ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" aria-hidden="true"></div>
                     <span>Enviando...</span>
+                    <span id="submitting-status" className="sr-only">Enviando mensaje, por favor espera</span>
                   </>
                 ) : (
                   <>
-                    <Send className="w-5 h-5" />
+                    <Send className="w-5 h-5" aria-hidden="true" />
                     <span>Enviar mensaje</span>
                   </>
                 )}
@@ -359,7 +380,7 @@ export default function Contact() {
         <div className={`bg-gradient-to-r from-cyan-500/10 to-teal-500/10 backdrop-blur-sm rounded-lg p-8 border mt-12 border-cyan-400/20 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="text-center space-y-4">
             <h4 className="text-lg font-semibold text-cyan-300">
-              💡 Respuesta rápida garantizada
+              <span aria-hidden="true">💡</span> Respuesta rápida garantizada
             </h4>
             <p className="text-gray-300 text-sm">
               Me comprometo a responder todos los mensajes en menos de 24 horas. 
@@ -368,12 +389,12 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className={`text-center pt-8 border-t border-gray-700 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <footer className={`text-center pt-8 border-t border-gray-700 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <p className="text-gray-400 text-sm">
             © 2025 Guillermo Álvarez Moreno. Desarrollado con Next.js y Tailwind CSS.
           </p>
-        </div>
+        </footer>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,0 +1,23 @@
+INSTRUCCIONES PARA CREAR LA IMAGEN OG
+
+Dimensiones: 1200x630 píxeles
+Formato: PNG o JPG
+Ubicación: public/og-image.png
+
+Contenido sugerido:
+- Nombre: "Guillermo Álvarez Moreno"
+- Título: "Desarrollador Fullstack Sevilla"
+- Subtítulo: "React • Next.js • Inteligencia Artificial"
+- Colores: Usar la paleta del portfolio (cyan, teal, grises)
+- Fondo: Gradiente oscuro similar al portfolio
+- Logo o iconos: React, Next.js, IA
+- Diseño: Moderno y profesional
+
+Esta imagen se mostrará cuando compartas tu portfolio en:
+- LinkedIn
+- Twitter
+- Facebook
+- WhatsApp
+- Otras redes sociales
+
+Recomendación: Usar herramientas como Canva, Figma o Photoshop para crear una imagen profesional.
