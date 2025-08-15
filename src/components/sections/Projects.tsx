@@ -78,7 +78,7 @@ export default function Projects() {
               alt="ThunderMail"
               fill
               quality={100}
-              className="object-fill transition-transform duration-500"
+              className="object-cover transition-transform duration-500"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -126,7 +126,7 @@ export default function Projects() {
               alt="PRzone"
               fill
               quality={100}
-              className="object-fill transition-transform duration-500"
+              className="object-cover transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </div>
