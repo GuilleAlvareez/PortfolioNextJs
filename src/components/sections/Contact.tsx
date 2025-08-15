@@ -1,7 +1,7 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // Importación de iconos de lucide-react
-import { Mail, Linkedin, Github, MessageCircle, User, MessageSquare, Send, CheckCircle } from 'lucide-react';
+import { Mail, Linkedin, Github, MessageCircle, User, MessageSquare, Send, CheckCircle, X } from 'lucide-react';
 
 interface FormErrors {
   name?: string;
@@ -20,6 +20,21 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationType, setNotificationType] = useState<'success' | 'error'>('success');
+
+  // Función para mostrar notificación
+  const showNotificationMessage = (message: string, type: 'success' | 'error') => {
+    setNotificationMessage(message);
+    setNotificationType(type);
+    setShowNotification(true);
+    
+    // Auto-ocultar después de 5 segundos
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 5000);
+  };
 
   // Array de métodos de contacto actualizado con iconos de Lucide
   const contactMethods = [
@@ -105,9 +120,22 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
       
-      setIsSubmitted(true);
+      if (!response.ok) {
+        throw new Error('Error al enviar el mensaje');
+      }
+      
+      // Mostrar notificación de éxito
+      showNotificationMessage('¡Mensaje enviado correctamente! Te responderé en menos de 24 horas.', 'success');
+      
+      // Limpiar formulario
       setFormData({
         name: '',
         email: '',
@@ -116,38 +144,43 @@ export default function Contact() {
       });
     } catch (error) {
       console.error('Error enviando formulario:', error);
+      showNotificationMessage('Error al enviar el mensaje. Por favor, inténtalo de nuevo.', 'error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <div className="space-y-12 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8">
-        <div className="text-center space-y-6">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-cyan-500 to-teal-500 rounded-full flex items-center justify-center">
-            <CheckCircle className="w-8 h-8 text-white" />
-          </div>
-          <h3 className="text-2xl font-bold text-white">
-            ¡Mensaje enviado correctamente!
-          </h3>
-          <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
-            Gracias por contactarme. He recibido tu mensaje y te responderé lo antes posible, 
-            normalmente en menos de 24 horas.
-          </p>
-          <button
-            onClick={() => setIsSubmitted(false)}
-            className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 transform"
-          >
-            Enviar otro mensaje
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-12 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8">
+      {/* Notificación Toast */}
+      {showNotification && (
+        <div className="fixed top-4 right-4 z-50 transform transition-all duration-500 ease-out">
+          <div className={`flex items-center space-x-3 p-4 rounded-lg shadow-lg border-l-4 ${
+            notificationType === 'success' 
+              ? 'bg-green-900/90 border-green-400 text-green-100' 
+              : 'bg-red-900/90 border-red-400 text-red-100'
+          } backdrop-blur-sm`}>
+            <div className="flex-shrink-0">
+              {notificationType === 'success' ? (
+                <CheckCircle className="w-5 h-5 text-green-400" />
+              ) : (
+                <X className="w-5 h-5 text-red-400" />
+              )}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium">
+                {notificationMessage}
+              </p>
+            </div>
+            <button
+              onClick={() => setShowNotification(false)}
+              className="flex-shrink-0 text-gray-300 hover:text-white transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="relative">
         <div className="text-center space-y-6 mb-7">

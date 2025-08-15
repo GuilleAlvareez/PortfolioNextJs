@@ -16,13 +16,13 @@ export default function Home() {
         <Hero />
       </SectionWrapper>
       
-      {/* <div id="about" title='' className='w-full mx-auto space-y-8'>
+      <div id="about" title='' className='w-full mx-auto space-y-8'>
         <About />
-      </div> */}
+      </div>
       
-      <SectionWrapper id="about" title=''>
+      {/* <SectionWrapper id="about" title=''>
         <About />
-      </SectionWrapper>
+      </SectionWrapper> */}
 
       <SectionWrapper id="projects" title="">
         <Projects />

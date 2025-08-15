@@ -21,7 +21,7 @@ export default function Projects() {
   ];
 
   return (
-    <div className="space-y-8 max-w-screen-2xl mx-auto mt-20">
+    <div className="max-w-screen-2xl mx-auto mt-20">
       <div className="text-center mb-16 transition-all duration-1000 opacity-100 translate-y-0">
         <h2 className="h-24 text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent ">
           Proyectos
@@ -42,7 +42,7 @@ export default function Projects() {
           <div className="flex-1 lg:max-w-3xl transform transition-all duration-500 group-hover:translate-x-2">
             <div className="p-8 rounded-lg h-full">
               <div className="text-left">
-                <h4 className="text-3xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text mb-6 transition-all duration-300">
+                <h4 className="text-4xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text mb-6 transition-all duration-300 tracking-tight">
                   {projects[0].title}
                 </h4>
                 <p className="text-gray-300 text-base mb-8 leading-relaxed">
@@ -91,7 +91,7 @@ export default function Projects() {
           <div className="flex-1 lg:max-w-3xl lg:ml-5 transform transition-all duration-500 group-hover:-translate-x-2">
             <div className="p-8 rounded-lg h-full">
               <div className="text-left">
-                <h4 className="text-3xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text mb-6 transition-all duration-300">
+                <h4 className="text-4xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text mb-6 transition-all duration-300 tracking-tight">
                   {projects[1].title}
                 </h4>
                 <p className="text-gray-300 text-base mb-8 leading-relaxed">

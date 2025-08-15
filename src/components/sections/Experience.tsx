@@ -1,4 +1,3 @@
-import ExperienceItem from "@/components/ui/ExperienceItem";
 import Image from "next/image";
 
 export default function Experience() {
