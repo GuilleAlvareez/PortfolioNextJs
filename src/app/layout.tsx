@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'es_ES',
-    url: 'https://guillermoalvarez.dev', // Cambiar por tu dominio real
+    url: 'https://guillermoalvarezdev.com', // Cambiar por tu dominio real
     siteName: 'Guillermo Álvarez Moreno - Portfolio',
     title: 'Guillermo Álvarez Moreno - Desarrollador Fullstack Sevilla',
     description: 'Desarrollador Fullstack especializado en React, Next.js e Inteligencia Artificial. Portfolio personal con base en Sevilla, España.',
@@ -74,7 +75,7 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   alternates: {
-    canonical: 'https://guillermoalvarez.dev', // Cambiar por tu dominio real
+    canonical: 'https://guillermoalvarezdev.com', // Cambiar por tu dominio real
   },
   category: 'technology',
 }
@@ -97,8 +98,8 @@ export default function RootLayout({
               "name": "Guillermo Álvarez Moreno",
               "jobTitle": "Desarrollador Fullstack",
               "description": "Desarrollador Fullstack especializado en React, Next.js e Inteligencia Artificial con base en Sevilla, España",
-              "url": "https://guillermoalvarez.dev",
-              "image": "https://guillermoalvarez.dev/og-image.png",
+              "url": "https://guillermoalvarezdev.com",
+              "image": "https://guillermoalvarezdev.com/og-image.png",
               "sameAs": [
                 "https://www.linkedin.com/in/guillermo-%C3%A1lvarez-moreno-15904030a/",
                 "https://github.com/GuilleAlvareez"
@@ -133,6 +134,7 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-900 text-gray-100 antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   )
