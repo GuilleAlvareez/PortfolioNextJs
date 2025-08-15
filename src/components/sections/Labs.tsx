@@ -42,7 +42,12 @@ export default function Labs() {
 
   return (
     <div className="space-y-8">
-      <div className="text-center space-y-4">
+      <div className="text-center mb-20 space-y-4">
+        {" "}
+        {/* Más espacio abajo y entre elementos */}
+        <h2 className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter">
+          Laboratorio de experimentos
+        </h2>
         <p className="text-gray-300 text-lg leading-relaxed">
           Mi laboratorio personal donde experimento con tecnologías como Astro,
           exploro técnicas avanzadas de React y TypeScript, y desarrollo soluciones

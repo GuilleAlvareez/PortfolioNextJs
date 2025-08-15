@@ -32,3 +32,21 @@ body {
 .animate-scroll-line {
   animation: scroll-line 2s infinite ease-in-out;
 }
+
+.timeline-line {
+  background-size: 100% 200%;
+  animation: flow-gradient 5s linear infinite;
+}
+
+@keyframes flow-gradient {
+  0% { background-position: 50% 0%; }
+  100% { background-position: 50% 200%; }
+}
+
+.timeline-container:hover .timeline-item {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+.timeline-container:hover .timeline-item:hover {
+  opacity: 1;
+}

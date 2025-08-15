@@ -28,11 +28,11 @@ export default function Home() {
         <Experience />
       </SectionWrapper>
       
-      <SectionWrapper id="labs" title="Laboratorio">
+      {/* <SectionWrapper id="labs" title="Laboratorio">
         <Labs />
-      </SectionWrapper>
+      </SectionWrapper> */}
       
-      <SectionWrapper id="contact" title="Contacto">
+      <SectionWrapper id="contact" title="">
         <Contact />
       </SectionWrapper>
     </main>
