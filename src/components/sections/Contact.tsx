@@ -151,7 +151,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="space-y-12 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8">
+    <div className="space-y-12 mt-24 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8">
       {/* Notificación Toast */}
       {showNotification && (
         <div className="fixed top-4 right-4 z-50 transform transition-all duration-500 ease-out">

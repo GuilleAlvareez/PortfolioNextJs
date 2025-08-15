@@ -6,6 +6,7 @@ import Experience from '@/components/sections/Experience'
 import Labs from '@/components/sections/Labs'
 import Contact from '@/components/sections/Contact'
 import SectionWrapper from '@/components/ui/SectionWrapper'
+import Skills from '@/components/sections/Skills'
 
 export default function Home() {
   return (
@@ -19,10 +20,6 @@ export default function Home() {
       <div id="about" title='' className='w-full mx-auto space-y-8'>
         <About />
       </div>
-      
-      {/* <SectionWrapper id="about" title=''>
-        <About />
-      </SectionWrapper> */}
 
       <SectionWrapper id="projects" title="">
         <Projects />
@@ -32,9 +29,9 @@ export default function Home() {
         <Experience />
       </SectionWrapper>
       
-      {/* <SectionWrapper id="labs" title="">
-        <Labs />
-      </SectionWrapper>*/}
+      <div id="labs" title="" className='w-full mx-auto mb-30'>
+        <Skills />
+      </div>
       
       <SectionWrapper id="contact" title="">
         <Contact />

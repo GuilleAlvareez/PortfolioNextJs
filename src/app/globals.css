@@ -50,3 +50,22 @@ body {
 .timeline-container:hover .timeline-item:hover {
   opacity: 1;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  /* 
+    Define la animación pero la deja en su estado final (forwards).
+    La 'key' en el componente de React se encargará de reiniciarla.
+  */
+  animation: fadeIn 0.5s ease-out forwards;
+}

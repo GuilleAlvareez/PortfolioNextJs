@@ -21,7 +21,7 @@ export default function Experience() {
   ];
 
   return (
-    <div className="space-y-8 max-w-screen-2xl mx-auto mt-20">
+    <div className="space-y-12 mt-24 max-w-screen-2xl mx-auto">
       <div className="text-center mb-20 space-y-4">
         {" "}
         {/* Más espacio abajo y entre elementos */}
