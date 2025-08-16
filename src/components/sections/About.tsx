@@ -29,14 +29,14 @@ export default function About() {
       { threshold: 0.2 } // Se activa cuando el 20% de la sección es visible
     );
 
-    const element = document.getElementById('about-section');
+    const element = document.getElementById('about');
     if (element) observer.observe(element);
 
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="about-section" className="pt-20 px-6 relative overflow-hidden" aria-labelledby="about-title">
+    <section id="about" className="pt-20 px-6 relative overflow-hidden" aria-labelledby="about-title">
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Encabezado de la sección */}

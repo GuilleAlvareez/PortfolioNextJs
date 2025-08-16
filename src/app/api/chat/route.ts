@@ -30,22 +30,8 @@ export async function POST(request: NextRequest) {
     // Preparar el mensaje del sistema
     const systemMessage: ChatMessage = {
       role: 'system',
-      content: `Eres un asistente virtual amigable y profesional en el portfolio de Guillermo Álvarez Moreno, un desarrollador Fullstack con base en Sevilla, España. 
-
-      Tu objetivo es responder preguntas sobre Guillermo, sus habilidades, proyectos y experiencia de manera concisa y servicial.
-
-      Información sobre Guillermo:
-      - Desarrollador Fullstack especializado en React, Next.js e Inteligencia Artificial
-      - Ubicado en Sevilla, España
-      - Trabaja en SURLABS
-      - Habilidades principales: React, Next.js, JavaScript, TypeScript, Node.js, IA
-      - Tiene experiencia en desarrollo web moderno y tecnologías emergentes
-      - Portfolio: https://guillermoalvarezdev.com
-      - LinkedIn: https://www.linkedin.com/in/guillermo-%C3%A1lvarez-moreno-15904030a/
-      - GitHub: https://github.com/GuilleAlvareez
-
-      Sé amigable, profesional y proporciona información útil sobre Guillermo y sus capacidades como desarrollador. Si no tienes información sobre algo específico, indícalo honestamente.`
-    };
+      content: process.env.SYSTEM_PROMPT || ''
+    }
 
     // Construir el payload para OpenRouter
     const payload = {

@@ -19,7 +19,7 @@ export default function Experience() {
       { threshold: 0.2 }
     );
 
-    const element = document.getElementById('experience-section');
+    const element = document.getElementById('experience');
     if (element) observer.observe(element);
 
     return () => observer.disconnect();
@@ -45,7 +45,7 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience-section" className="space-y-12 mt-24 max-w-screen-2xl mx-auto" aria-labelledby="experience-title">
+    <section id="experience" className="space-y-12 mt-24 max-w-screen-2xl mx-auto" aria-labelledby="experience-title">
       <div className={`text-center mb-20 space-y-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         {" "}
         {/* Más espacio abajo y entre elementos */}

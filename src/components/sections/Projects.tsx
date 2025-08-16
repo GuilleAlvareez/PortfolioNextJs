@@ -19,7 +19,7 @@ export default function Projects() {
       { threshold: 0.2 }
     );
 
-    const element = document.getElementById('projects-section');
+    const element = document.getElementById('projects');
     if (element) observer.observe(element);
 
     return () => observer.disconnect();
@@ -45,7 +45,7 @@ export default function Projects() {
   ];
 
   return (
-    <div id="projects-section" className="max-w-screen-2xl mx-auto mt-20">
+    <section id="projects" className="max-w-screen-2xl mx-auto mt-20">
       <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="h-24 text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent ">
           Proyectos
@@ -168,6 +168,6 @@ export default function Projects() {
           <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
         </a>
       </div>
-    </div>
+    </section>
   );
 }

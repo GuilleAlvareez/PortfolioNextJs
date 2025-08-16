@@ -39,7 +39,7 @@ export default function Contact() {
       { threshold: 0.2 }
     );
 
-    const element = document.getElementById('contact-section');
+    const element = document.getElementById('contact');
     if (element) observer.observe(element);
 
     return () => observer.disconnect();
@@ -172,11 +172,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact-section" className="space-y-12 mt-24 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8" aria-labelledby="contact-title">
+    <section id="contact" className="space-y-12 mt-16 max-w-screen-2xl mx-auto p-4 sm:p-6 md:p-8" aria-labelledby="contact-title">
       {/* Notificación Toast */}
-      {showNotification && (
-        <div 
-          className="fixed top-4 right-4 z-50 transform transition-all duration-500 ease-out"
+      <div 
+          className={`fixed top-4 right-4 z-50 transform transition-all duration-500 ease-out ${showNotification ? 'visible translate-x-0' : 'translate-x-full invisible'}`}
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
@@ -207,7 +206,6 @@ export default function Contact() {
             </button>
           </div>
         </div>
-      )}
 
       <div className="relative">
         <div className={`text-center space-y-6 mb-7 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>

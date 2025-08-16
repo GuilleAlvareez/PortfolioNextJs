@@ -5,15 +5,55 @@ import { useEffect, useState, } from 'react'
 export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrollY, setScrollY] = useState(0)
+  const [activeSection, setActiveSection] = useState('hero')
 
   const handleScroll = () => {
     setScrollY(window.scrollY)
+    
+    // Si estamos en la parte superior, marcar hero como activo
+    if (window.scrollY < 100) {
+      setActiveSection('hero')
+    }
   }
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
     return () => {
       window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Intersection Observer para detectar secciones activas
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px', // Ajusta el margen para detectar mejor las secciones
+      threshold: 0
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id
+          // Solo actualizar si es una sección válida del navbar
+          const validSections = ['hero', 'about', 'projects', 'experience', 'skills', 'contact']
+          if (validSections.includes(sectionId)) {
+            setActiveSection(sectionId)
+          }
+        }
+      })
+    }, observerOptions)
+
+    // Observar todas las secciones
+    const sections = document.querySelectorAll('section[id], div[id]')
+    sections.forEach((section) => {
+      observer.observe(section)
+    })
+
+    return () => {
+      sections.forEach((section) => {
+        observer.unobserve(section)
+      })
     }
   }, [])
 
@@ -32,12 +72,12 @@ export default function NavBar() {
   }, [isMenuOpen])
 
   const navItems = [
-    { href: '#hero', label: 'Inicio' },
-    { href: '#about', label: 'Sobre Mí' },
-    { href: '#projects', label: 'Proyectos' },
-    { href: '#experience', label: 'Trayectoria' },
-    { href: '#skills', label: 'Habilidades' },
-    { href: '#contact', label: 'Contacto' },
+    { href: '#hero', label: 'Inicio', id: 'hero' },
+    { href: '#about', label: 'Sobre Mí', id: 'about' },
+    { href: '#projects', label: 'Proyectos', id: 'projects' },
+    { href: '#experience', label: 'Trayectoria', id: 'experience' },
+    { href: '#skills', label: 'Habilidades', id: 'skills' },
+    { href: '#contact', label: 'Contacto', id: 'contact' },
   ]
 
   return (
@@ -59,16 +99,23 @@ export default function NavBar() {
         {/* Desktop Navigation */}
         <ul className="hidden md:flex space-x-6" role="menubar">
           {navItems.map((item, index) => (
-            <li key={item.href} role="none">
-              <a
-                href={item.href}
-                className="text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2 py-1"
-                role="menuitem"
-                tabIndex={0}
-              >
-                {item.label}
-              </a>
-            </li>
+            <li key={item.href} role="none" className='group relative'>
+            <a
+              href={item.href}
+              className={`block transition-colors duration-300 font-medium focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-3 py-2 ${
+                activeSection === item.id 
+                  ? 'text-cyan-400' 
+                  : 'text-gray-300 group-hover:text-cyan-400'
+              }`}
+              role="menuitem"
+              tabIndex={0}
+            >
+              {item.label}
+            </a>
+            <span className={`absolute left-0 -bottom-1 h-[3px] rounded-full bg-cyan-400 transition-all duration-300 ease-out ${
+              activeSection === item.id ? 'w-full' : 'w-0 group-hover:w-full'
+            }`}></span>
+          </li>
           ))}
         </ul>
 
@@ -119,7 +166,11 @@ export default function NavBar() {
               <li key={item.href} role="none">
                 <a
                   href={item.href}
-                  className="block py-2 text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2"
+                  className={`block py-2 transition-colors duration-200 font-medium focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded px-2 ${
+                    activeSection === item.id 
+                      ? 'text-cyan-400' 
+                      : 'text-gray-300 hover:text-cyan-400'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                   role="menuitem"
                   tabIndex={0}

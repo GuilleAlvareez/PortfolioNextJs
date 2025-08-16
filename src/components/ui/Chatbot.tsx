@@ -15,13 +15,14 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
-      text: "¡Hola! Soy el asistente virtual de Guillermo. ¿En qué puedo ayudarte? Puedes preguntarme sobre sus habilidades, proyectos, experiencia o cualquier cosa relacionada con su portfolio.",
+      text: "¡Hola! Soy el asistente virtual de Guillermo. ¿En qué puedo ayudarte? Puedes preguntarme sobre sus habilidades, proyectos, experiencia o cualquier cosa relacionada el.",
       sender: "bot",
       timestamp: new Date(),
     },
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isThinking, setIsThinking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -53,6 +54,7 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, userMessage]);
     setInputValue("");
     setIsLoading(true);
+    setIsThinking(true);
 
     // Crear mensaje del bot vacío para streaming
     const botMessageId = Date.now() + 1;
@@ -82,6 +84,9 @@ export default function Chatbot() {
       if (!response.ok) {
         throw new Error("Error en la respuesta del servidor");
       }
+
+      // Ocultar la animación de pensando cuando comienza a recibir la respuesta
+      setIsThinking(false);
 
       const reader = response.body?.getReader();
       if (!reader) {
@@ -142,6 +147,7 @@ export default function Chatbot() {
       );
     } finally {
       setIsLoading(false);
+      setIsThinking(false);
     }
   };
 
@@ -157,10 +163,19 @@ export default function Chatbot() {
       {/* Botón flotante */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-10 right-12 z-50 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg hover:scale-110 transition-all duration-200 animate-pulse"
-        aria-label="Abrir chat"
+        className="fixed bottom-8 right-8 z-50 group"
+        aria-label="Abrir chat de asistente IA"
       >
-        <MessageCircle size={24} />
+        {/* El pulso animado (detrás) */}
+        <div className="absolute inset-0 bg-cyan-400/50 rounded-full opacity-50 group-hover:opacity-75 animate-pulse"></div>
+
+        {/* El botón principal (delante) */}
+        <div className="relative w-16 h-16 bg-gray-800/80 backdrop-blur-md rounded-full flex items-center justify-center border border-gray-700 shadow-lg group-hover:border-cyan-400 transition-all duration-300">
+          <Bot
+            size={28}
+            className="text-cyan-400 group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
       </button>
 
       {/* Ventana del chat */}
@@ -185,6 +200,7 @@ export default function Chatbot() {
           {/* Mensajes */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((message) => (
+              (message.sender === 'user' || (message.sender === 'bot' && message.text.trim() !== '')) && (
               <div
                 key={message.id}
                 className={`flex ${
@@ -206,33 +222,29 @@ export default function Chatbot() {
                         : "text-gray-400"
                     }`}
                   >
-                    {formatTime(message.timestamp)}
                   </p>
                 </div>
-              </div>
-            ))}
+              </div> 
+            )))}
 
-            {/* Indicador de carga solo puntitos */}
-            {isLoading &&
-              !messages.some(
-                (msg) => msg.sender === "bot" && msg.text !== ""
-              ) && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-700 text-gray-100 rounded-lg px-4 py-2">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                      <div
-                        className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.1s" }}
-                      ></div>
-                      <div
-                        className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.2s" }}
-                      ></div>
-                    </div>
+            {/* Animación de pensando */}
+            {isThinking && (
+              <div className="flex justify-start">
+                <div className="bg-gray-700 text-gray-100 rounded-lg px-4 py-3">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                    <div 
+                      className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
+                    <div 
+                      className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"
+                      style={{ animationDelay: "0.4s" }}
+                    ></div>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
             <div ref={messagesEndRef} />
           </div>

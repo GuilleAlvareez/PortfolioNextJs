@@ -9,7 +9,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative flex flex-col items-center justify-center text-center h-full min-h-screen pt-16 overflow-hidden px-4 md:px-0" aria-labelledby="hero-title">
+    <section id="hero" className="relative flex flex-col items-center justify-center text-center h-full min-h-screen pt-16 overflow-hidden px-4 md:px-0" aria-labelledby="hero-title">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black" aria-hidden="true"/>
       

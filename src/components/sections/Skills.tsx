@@ -64,7 +64,7 @@ export default function Skills() {
       { threshold: 0.2 }
     );
 
-    const element = document.getElementById('skills-section');
+    const element = document.getElementById('skills');
     if (element) observer.observe(element);
 
     return () => observer.disconnect();
@@ -88,7 +88,7 @@ export default function Skills() {
   }, [activeCategory]); // Se ejecuta cada vez que 'activeCategory' cambia
 
   return (
-    <div id="skills-section" className=" px-6">
+    <section id="skills" className="px-6 mt-16">
       <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4">
           Habilidades Técnicas
@@ -167,7 +167,7 @@ export default function Skills() {
         </div>
       </div>
       
-      {/* El CSS de la animación debería estar en globals.css */}
-    </div>
-  );
+             {/* El CSS de la animación debería estar en globals.css */}
+     </section>
+   );
 }
