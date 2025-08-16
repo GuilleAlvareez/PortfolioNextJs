@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import { BrainCircuit, Code, Rocket, Zap, Users, Award } from 'lucide-react';
 
 export default function About() {
+  // Controla la animación de entrada de la sección
   const [isVisible, setIsVisible] = useState(false);
 
-  // Simplificamos las motivaciones para que sean más directas
+  // Configuración de motivaciones profesionales con iconos
   const motivations = [
     { icon: BrainCircuit, text: "Integración de IA" },
     { icon: Code, text: "Código Limpio y Escalable" },
@@ -15,7 +16,7 @@ export default function About() {
     { icon: Award, text: "Aprendizaje Continuo" },
   ];
 
-  // Hook para la animación de entrada
+  // Intersection Observer para activar animaciones cuando la sección es visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

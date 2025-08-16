@@ -4,7 +4,8 @@ import './globals.css'
 import { Analytics } from '@vercel/analytics/react';
 import Chatbot from '@/components/ui/Chatbot';
 
-const inter = Inter({ 
+// Configuración de la fuente Inter con variable CSS para optimización
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
 })
@@ -89,7 +90,7 @@ export default function RootLayout({
   return (
     <html lang="es" className={inter.variable}>
       <head>
-        {/* Datos estructurados JSON-LD */}
+        {/* Datos estructurados JSON-LD para SEO y rich snippets */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -135,7 +136,9 @@ export default function RootLayout({
       </head>
       <body className="bg-gray-900 text-gray-100 antialiased">
         {children}
+        {/* Analytics de Vercel para tracking de métricas */}
         <Analytics />
+        {/* Chatbot flotante disponible en toda la aplicación */}
         <Chatbot />
       </body>
     </html>

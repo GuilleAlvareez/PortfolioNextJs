@@ -11,7 +11,9 @@ interface Message {
 }
 
 export default function Chatbot() {
+  // Controla si la ventana del chat está abierta o cerrada
   const [isOpen, setIsOpen] = useState(false);
+  // Almacena todos los mensajes de la conversación
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -20,30 +22,39 @@ export default function Chatbot() {
       timestamp: new Date(),
     },
   ]);
+  // Controla el valor del input de texto
   const [inputValue, setInputValue] = useState("");
+  // Indica si se está enviando un mensaje
   const [isLoading, setIsLoading] = useState(false);
+  // Indica si el bot está "pensando" (procesando respuesta)
   const [isThinking, setIsThinking] = useState(false);
+  // Referencias para scroll automático y focus del input
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Hace scroll automático al final de los mensajes
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  // Scroll automático cuando se añaden nuevos mensajes
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
+  // Focus automático en el input cuando se abre el chat
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isOpen]);
 
+  // Maneja el envío de mensajes del usuario y la respuesta del bot
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
 
+    // Crear mensaje del usuario
     const userMessage: Message = {
       id: Date.now(),
       text: inputValue.trim(),
@@ -68,6 +79,7 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, botMessage]);
 
     try {
+      // Enviar conversación completa a la API del chatbot
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
@@ -88,6 +100,7 @@ export default function Chatbot() {
       // Ocultar la animación de pensando cuando comienza a recibir la respuesta
       setIsThinking(false);
 
+      // Procesar respuesta streaming del bot
       const reader = response.body?.getReader();
       if (!reader) {
         throw new Error("No se pudo leer la respuesta");
@@ -97,6 +110,7 @@ export default function Chatbot() {
       let accumulatedText = "";
 
       try {
+        // Leer el stream de datos en tiempo real
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
@@ -104,12 +118,13 @@ export default function Chatbot() {
           const chunk = decoder.decode(value);
           const lines = chunk.split("\n");
 
+          // Procesar cada línea del stream SSE
           for (const line of lines) {
             if (line.startsWith("data: ")) {
               try {
                 const data = JSON.parse(line.slice(6));
                 if (data.content) {
-                  // Dividir el contenido en caracteres individuales
+                  // Dividir el contenido en caracteres individuales para efecto de escritura
                   const characters = data.content.split("");
                   for (const char of characters) {
                     accumulatedText += char;
@@ -120,12 +135,12 @@ export default function Chatbot() {
                           : msg
                       )
                     );
-                    // Pausa de 50ms entre cada letra para hacer la escritura más fluida
+                    // Pausa entre caracteres para simular escritura en tiempo real
                     await new Promise((resolve) => setTimeout(resolve, 20));
                   }
                 }
               } catch (e) {
-                // Ignorar líneas malformadas
+                // Ignorar líneas malformadas del stream
               }
             }
           }

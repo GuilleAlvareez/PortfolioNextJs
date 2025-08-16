@@ -1,9 +1,11 @@
 import { MetadataRoute } from 'next'
 
+// Genera el sitemap XML automáticamente para SEO
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://guillermoalvarezdev.dev'
-  
+
   return [
+    // Página principal con máxima prioridad
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -16,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // Sección de proyectos con alta prioridad y actualización semanal
     {
       url: `${baseUrl}/#projects`,
       lastModified: new Date(),

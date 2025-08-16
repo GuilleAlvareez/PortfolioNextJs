@@ -11,23 +11,24 @@ import Skills from '@/components/sections/Skills'
 export default function Home() {
   return (
     <main className="min-h-screen">
+      {/* Barra de navegación fija en la parte superior */}
       <NavBar />
-      
+
       {/* Hero Section */}
       <Hero />
-      
+
       {/* About Section */}
       <About />
 
       {/* Projects Section */}
       <Projects />
-      
+
       {/* Experience Section */}
       <Experience />
-      
+
       {/* Skills Section */}
       <Skills />
-      
+
       {/* Contact Section */}
       <Contact />
     </main>

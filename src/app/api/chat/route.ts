@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Estructura de mensajes del chat compatible con OpenAI/OpenRouter
 interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
 }
 
+// Estructura de respuesta de OpenRouter API
 interface OpenRouterResponse {
   choices: Array<{
     message: {
@@ -13,11 +15,12 @@ interface OpenRouterResponse {
   }>;
 }
 
+// Endpoint para manejar conversaciones del chatbot con streaming
 export async function POST(request: NextRequest) {
   try {
     const { messages } = await request.json();
 
-    // Verificar que tenemos la API key
+    // Verificar que tenemos la API key de OpenRouter
     const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
       console.error('OPENROUTER_API_KEY no está configurada');
@@ -27,13 +30,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Preparar el mensaje del sistema
+    // Preparar el mensaje del sistema con el prompt personalizado
     const systemMessage: ChatMessage = {
       role: 'system',
       content: process.env.SYSTEM_PROMPT || ''
     }
 
-    // Construir el payload para OpenRouter
+    // Construir el payload para la API de OpenRouter con configuración optimizada
     const payload = {
       model: 'mistralai/mistral-7b-instruct:free', // Modelo gratuito para empezar
       messages: [systemMessage, ...messages],
@@ -42,7 +45,7 @@ export async function POST(request: NextRequest) {
       stream: true
     };
 
-    // Llamada a OpenRouter con streaming
+    // Llamada a OpenRouter con streaming habilitado
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -63,7 +66,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Configurar streaming response
+    // Configurar streaming response para envío en tiempo real
     const encoder = new TextEncoder();
     const stream = new ReadableStream({
       async start(controller) {
@@ -74,6 +77,7 @@ export async function POST(request: NextRequest) {
         }
 
         try {
+          // Procesar el stream de datos de OpenRouter
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
@@ -81,6 +85,7 @@ export async function POST(request: NextRequest) {
             const chunk = new TextDecoder().decode(value);
             const lines = chunk.split('\n');
 
+            // Procesar cada línea del stream SSE (Server-Sent Events)
             for (const line of lines) {
               if (line.startsWith('data: ')) {
                 const data = line.slice(6);
@@ -96,7 +101,7 @@ export async function POST(request: NextRequest) {
                     controller.enqueue(encoder.encode(`data: ${JSON.stringify({ content })}\n\n`));
                   }
                 } catch (e) {
-                  // Ignorar líneas malformadas
+                  // Ignorar líneas malformadas del stream
                 }
               }
             }

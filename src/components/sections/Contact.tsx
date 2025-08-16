@@ -11,21 +11,26 @@ interface FormErrors {
 }
 
 export default function Contact() {
+  // Estado del formulario de contacto
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
+  // Controla el estado de envío del formulario
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  // Maneja errores de validación del formulario
   const [errors, setErrors] = useState<FormErrors>({});
+  // Controla la visibilidad de notificaciones toast
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationType, setNotificationType] = useState<'success' | 'error'>('success');
+  // Controla la animación de entrada de la sección
   const [isVisible, setIsVisible] = useState(false);
 
-  // Hook para la animación de entrada
+  // Intersection Observer para activar animaciones cuando la sección es visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -45,12 +50,12 @@ export default function Contact() {
     return () => observer.disconnect();
   }, []);
 
-  // Función para mostrar notificación
+  // Muestra notificaciones toast con auto-ocultado
   const showNotificationMessage = (message: string, type: 'success' | 'error') => {
     setNotificationMessage(message);
     setNotificationType(type);
     setShowNotification(true);
-    
+
     // Auto-ocultar después de 5 segundos
     setTimeout(() => {
       setShowNotification(false);
@@ -89,40 +94,43 @@ export default function Contact() {
     }
   ];
 
+  // Valida todos los campos del formulario antes del envío
   const validateForm = () => {
     const newErrors: FormErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'El nombre es requerido';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'El email es requerido';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'El email no es válido';
     }
-    
+
     if (!formData.subject.trim()) {
       newErrors.subject = 'El asunto es requerido';
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'El mensaje es requerido';
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'El mensaje debe tener al menos 10 caracteres';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  // Maneja cambios en los campos del formulario y limpia errores
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
-    
+
+    // Limpiar error del campo cuando el usuario empieza a escribir
     if (errors[name as keyof FormErrors]) {
       setErrors(prev => ({
         ...prev,
@@ -131,16 +139,18 @@ export default function Contact() {
     }
   };
 
+  // Maneja el envío del formulario con validación y notificaciones
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
+      // Envía los datos del formulario a la API de contacto
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -148,15 +158,15 @@ export default function Contact() {
         },
         body: JSON.stringify(formData),
       });
-      
+
       if (!response.ok) {
         throw new Error('Error al enviar el mensaje');
       }
-      
+
       // Mostrar notificación de éxito
       showNotificationMessage('¡Mensaje enviado correctamente! Te responderé en menos de 24 horas.', 'success');
-      
-      // Limpiar formulario
+
+      // Limpiar formulario después del envío exitoso
       setFormData({
         name: '',
         email: '',

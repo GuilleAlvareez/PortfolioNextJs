@@ -3,9 +3,10 @@ import Image from "next/image";
 import { useState, useEffect } from 'react';
 
 export default function Experience() {
+  // Controla la animación de entrada de la sección
   const [isVisible, setIsVisible] = useState(false);
 
-  // Hook para la animación de entrada
+  // Intersection Observer para activar animaciones cuando la sección es visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -25,6 +26,7 @@ export default function Experience() {
     return () => observer.disconnect();
   }, []);
 
+  // Configuración de experiencias profesionales y educativas
   const experiences = [
     {
       date: "Mar 2025 - Jun 2025",

@@ -3,9 +3,10 @@ import Image from "next/image";
 import { useState, useEffect } from 'react';
 
 export default function Projects() {
+  // Controla la animación de entrada de la sección
   const [isVisible, setIsVisible] = useState(false);
 
-  // Hook para la animación de entrada
+  // Intersection Observer para activar animaciones cuando la sección es visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -25,6 +26,7 @@ export default function Projects() {
     return () => observer.disconnect();
   }, []);
 
+  // Configuración de proyectos destacados y regulares
   const projects = [
     {
       title: "ThunderMail",

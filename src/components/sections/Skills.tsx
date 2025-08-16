@@ -44,13 +44,16 @@ const categoryIcons = {
   'Base de Datos': Database,
 };
 
+// Lista de categorías disponibles para filtrar habilidades
+const categories: Category[] = ['Frontend', 'Backend', 'Frameworks', 'Base de Datos', 'IA'];
+
 export default function Skills() {
+  // Controla qué categoría de habilidades está actualmente seleccionada
   const [activeCategory, setActiveCategory] = useState<Category>('Frontend');
+  // Controla la animación de entrada de la sección
   const [isVisible, setIsVisible] = useState(false);
 
-  const categories: Category[] = ['Frontend', 'Backend', 'Frameworks', 'Base de Datos', 'IA'];
-
-  // Hook para la animación de entrada
+  // Intersection Observer para activar animaciones cuando la sección es visible
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -70,22 +73,22 @@ export default function Skills() {
     return () => observer.disconnect();
   }, []);
 
-  // Efecto para leer la categoría de la URL al cargar la página
+  // Se ejecuta solo una vez para leer la categoría inicial desde la URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const categoryFromURL = urlParams.get('category') as Category;
     if (categoryFromURL && categories.includes(categoryFromURL)) {
       setActiveCategory(categoryFromURL);
     }
-  }, []); // Se ejecuta solo una vez al montar el componente
+  }, []);
 
-  // Efecto para actualizar la URL cuando la categoría activa cambia
+  // Actualiza la URL cuando cambia la categoría activa para mantener estado
   useEffect(() => {
     const url = new URL(window.location.href);
     url.searchParams.set('category', activeCategory);
     // Usamos replaceState en lugar de pushState para no llenar el historial del navegador
     window.history.replaceState({}, '', url.toString());
-  }, [activeCategory]); // Se ejecuta cada vez que 'activeCategory' cambia
+  }, [activeCategory]);
 
   return (
     <section id="skills" className="px-6 mt-16">

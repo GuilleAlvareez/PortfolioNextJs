@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import sgMail from '@sendgrid/mail';
 
-// Configurar SendGrid con tu API key
+// Configurar SendGrid con la API key desde variables de entorno
 sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
 
+// Endpoint para manejar el envío de emails del formulario de contacto
 export async function POST(request: NextRequest) {
   try {
     const { name, email, subject, message } = await request.json();
 
-    // Validación básica
+    // Validación de campos requeridos
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: 'Todos los campos son requeridos' },
@@ -16,11 +17,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // --- CAMBIOS CLAVE AQUÍ ---
+    // Configuración del mensaje de email con formato optimizado
     const msg = {
-      to: 'guillealvarezmoreno2@gmail.com', // Tu email de destino
-      from: 'guillealvarezmoreno2@gmail.com', // <-- USA TU EMAIL VERIFICADO EN SENDGRID
-      replyTo: email, // <-- EL EMAIL DEL VISITANTE VA AQUÍ
+      to: 'guillealvarezmoreno2@gmail.com', // Email de destino (verificado en SendGrid)
+      from: 'guillealvarezmoreno2@gmail.com', // Email remitente (debe estar verificado en SendGrid)
+      replyTo: email, // Email del visitante para respuestas directas
       subject: `${subject}`,
       text: `
         Has recibido un nuevo mensaje desde el formulario de contacto de tu portfolio.
@@ -41,16 +42,15 @@ export async function POST(request: NextRequest) {
         <p>${message.replace(/\n/g, '<br>')}</p>
       `,
     };
-    // --- FIN DE LOS CAMBIOS ---
 
-    // Enviar email
+    // Enviar email a través de SendGrid
     await sgMail.send(msg);
 
     return NextResponse.json({ success: true });
   } catch (error: any) { // Tipar el error para acceder a sus propiedades
     console.error('Error enviando email:', JSON.stringify(error, null, 2));
 
-    // Opcional: Loguear más detalles si están disponibles en la respuesta de SendGrid
+    // Loguear detalles adicionales de la respuesta de SendGrid para debugging
     if (error.response) {
       console.error('Cuerpo de la respuesta de SendGrid:', error.response.body);
     }

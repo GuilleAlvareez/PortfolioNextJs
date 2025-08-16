@@ -2,8 +2,10 @@
 import { useState, useEffect } from 'react';
 
 export default function Hero() {
+  // Controla la animación de entrada del contenido
   const [isVisible, setIsVisible] = useState(false);
 
+  // Activa la animación de entrada al montar el componente
   useEffect(() => {
     setIsVisible(true);
   }, []);

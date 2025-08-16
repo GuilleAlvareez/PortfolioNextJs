@@ -3,19 +3,24 @@
 import { useEffect, useState, } from 'react'
 
 export default function NavBar() {
+  // Controla la visibilidad del menú móvil
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // Almacena la posición actual del scroll para efectos visuales
   const [scrollY, setScrollY] = useState(0)
+  // Rastrea qué sección está actualmente visible
   const [activeSection, setActiveSection] = useState('hero')
 
+  // Maneja el evento de scroll para mostrar/ocultar la navbar
   const handleScroll = () => {
     setScrollY(window.scrollY)
-    
+
     // Si estamos en la parte superior, marcar hero como activo
     if (window.scrollY < 100) {
       setActiveSection('hero')
     }
   }
 
+  // Añade listener de scroll al montar y lo elimina al desmontar
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
     return () => {
@@ -23,7 +28,7 @@ export default function NavBar() {
     }
   }, [])
 
-  // Intersection Observer para detectar secciones activas
+  // Intersection Observer para detectar automáticamente qué sección está visible
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -44,7 +49,7 @@ export default function NavBar() {
       })
     }, observerOptions)
 
-    // Observar todas las secciones
+    // Observar todas las secciones del documento
     const sections = document.querySelectorAll('section[id], div[id]')
     sections.forEach((section) => {
       observer.observe(section)
@@ -57,7 +62,7 @@ export default function NavBar() {
     }
   }, [])
 
-  // Cerrar menú móvil al presionar Escape
+  // Cerrar menú móvil al presionar Escape para mejor UX
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMenuOpen) {
@@ -71,6 +76,7 @@ export default function NavBar() {
     }
   }, [isMenuOpen])
 
+  // Configuración de elementos de navegación
   const navItems = [
     { href: '#hero', label: 'Inicio', id: 'hero' },
     { href: '#about', label: 'Sobre Mí', id: 'about' },
@@ -98,7 +104,7 @@ export default function NavBar() {
 
         {/* Desktop Navigation */}
         <ul className="hidden md:flex space-x-6" role="menubar">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <li key={item.href} role="none" className='group relative'>
             <a
               href={item.href}
@@ -162,7 +168,7 @@ export default function NavBar() {
           aria-labelledby="mobile-menu-button"
         >
           <ul className="px-4 py-2 space-y-2">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <li key={item.href} role="none">
                 <a
                   href={item.href}
