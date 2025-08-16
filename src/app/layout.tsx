@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Analytics } from '@vercel/analytics/react';
+import Chatbot from '@/components/ui/Chatbot';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -135,6 +136,7 @@ export default function RootLayout({
       <body className="bg-gray-900 text-gray-100 antialiased">
         {children}
         <Analytics />
+        <Chatbot />
       </body>
     </html>
   )

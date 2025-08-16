@@ -33,3 +33,6 @@ pnpm-debug.log*
 
 # Archivos de construcción de TypeScript
 *.tsbuildinfo
+
+# Archivos de chatbot
+/CHATBOT_SETUP.md
