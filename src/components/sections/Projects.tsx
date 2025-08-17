@@ -1,10 +1,14 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from 'react';
+import { HelpCircle } from 'lucide-react';
+import Modal from '../ui/Modal';
 
 export default function Projects() {
   // Controla la animación de entrada de la sección
   const [isVisible, setIsVisible] = useState(false);
+  // Controla la visibilidad del modal explicativo
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Intersection Observer para activar animaciones cuando la sección es visible
   useEffect(() => {
@@ -85,15 +89,28 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-                <a
-                  href={projects[0].link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold text-base transition-all duration-300 hover:gap-3 group/link"
-                >
-                  Ver proyecto 
-                  <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">→</span>
-                </a>
+                <div className="flex items-center gap-4">
+                  <a
+                    href={projects[0].link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold text-base transition-all duration-300 hover:gap-3 group/link"
+                  >
+                    Ver proyecto
+                    <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">→</span>
+                  </a>
+
+                  {/* Botón del modal para proyectos que solo tienen enlace a GitHub */}
+                  {projects[0].link.includes('github') && (
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="text-gray-400 hover:text-cyan-400 transition-colors flex items-center gap-1 text-sm"
+                    >
+                      <HelpCircle size={16} />
+                      ¿Por qué no está desplegado?
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -134,15 +151,28 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-                <a
-                  href={projects[1].link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold text-base transition-all duration-300 hover:gap-3 group/link"
-                >
-                  Ver proyecto 
-                  <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">→</span>
-                </a>
+                <div className="flex items-center gap-4">
+                  <a
+                    href={projects[1].link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold text-base transition-all duration-300 hover:gap-3 group/link"
+                  >
+                    Ver proyecto
+                    <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">→</span>
+                  </a>
+
+                  {/* Botón del modal para proyectos que solo tienen enlace a GitHub */}
+                  {projects[1].link.includes('github') && (
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="text-gray-400 hover:text-cyan-400 transition-colors flex items-center gap-1 text-sm"
+                    >
+                      <HelpCircle size={16} />
+                      ¿Por qué no está desplegado?
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -167,10 +197,46 @@ export default function Projects() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-3 text-cyan-400 hover:text-cyan-300 font-semibold transition-all duration-300 text-lg hover:gap-4 group bg-gradient-to-r from-gray-800/50 to-gray-700/50 px-6 py-3 rounded-full border border-gray-600 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-400/20"
         >
-          Ver todos mis proyectos en GitHub 
+          Ver todos mis proyectos en GitHub
           <span className="transform transition-transform duration-300 group-hover:translate-x-1">→</span>
         </a>
       </div>
+
+      {/* Modal explicativo */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="¿Por qué este proyecto no está desplegado?"
+      >
+        <div className="space-y-4 text-gray-300">
+          <p className="leading-relaxed">
+            Este proyecto, <span className="text-cyan-400 font-semibold">ThunderMail</span>, incluye una funcionalidad de backend para enviar correos electrónicos (por ejemplo, para registro o notificaciones). Para que esto funcione en un entorno de producción, se requiere un servicio de envío de emails como SendGrid.
+          </p>
+
+          <p className="leading-relaxed">
+            Los servicios como SendGrid, por razones de seguridad y para prevenir el spam (políticas DMARC), no permiten que los correos se envíen &apos;desde&apos; la dirección de un usuario cualquiera. El remitente (from) debe ser un dominio verificado y de mi propiedad. Esto significa que no puedo implementar una función de &apos;contactar a un amigo&apos; o similar usando el email del visitante como remitente.
+          </p>
+
+          <p className="leading-relaxed">
+            La solución profesional implica configurar un backend que envíe los correos desde mi propia dirección verificada, usando la del usuario solo como dirección de respuesta (reply-to). Aunque esta funcionalidad está implementada en el código, mantener estos servicios activos tiene un coste asociado. Por esta razón, la demo en vivo está desactivada.
+          </p>
+
+          <div className="mt-6 p-4 bg-gray-800 rounded-lg border border-gray-700">
+            <p className="text-cyan-400 font-medium mb-2">
+              ¡Te invito a explorar el código fuente completo para ver la implementación en detalle!
+            </p>
+            <a
+              href="https://github.com/guillealvarez"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-all duration-300 hover:gap-3 group/link"
+            >
+              Ver en GitHub
+              <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">→</span>
+            </a>
+          </div>
+        </div>
+      </Modal>
     </section>
   );
 }
