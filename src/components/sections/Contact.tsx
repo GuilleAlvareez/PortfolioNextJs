@@ -219,7 +219,7 @@ export default function Contact() {
 
       <div className="relative">
         <div className={`text-center space-y-6 mb-7 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 id="contact-title" className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4">
+          <h2 id="contact-title" className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4 leading-normal md:pb-2">
             ¿Tienes un proyecto en mente?
           </h2>
           <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">

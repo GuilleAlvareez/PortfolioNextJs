@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { MessageCircle, X, Send, Bot } from "lucide-react";
+import { MessageCircle, X, Send, Bot, Sparkles } from "lucide-react";
 
 interface Message {
   id: number;
@@ -172,26 +172,39 @@ export default function Chatbot() {
       minute: "2-digit",
     });
   };
-
+  
   return (
     <>
       {/* Botón flotante */}
+      <div className="fixed bottom-8 right-8 z-50">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-8 right-8 z-50 group"
-        aria-label="Abrir chat de asistente IA"
+        className="group relative"
+        aria-label="Abrir chat inteligente"
       >
-        {/* El pulso animado (detrás) */}
-        <div className="absolute inset-0 bg-cyan-400/50 rounded-full opacity-50 group-hover:opacity-75 animate-pulse"></div>
-
-        {/* El botón principal (delante) */}
-        <div className="relative w-16 h-16 bg-gray-800/80 backdrop-blur-md rounded-full flex items-center justify-center border border-gray-700 shadow-lg group-hover:border-cyan-400 transition-all duration-300">
-          <Bot
-            size={28}
-            className="text-cyan-400 group-hover:scale-110 transition-transform duration-300"
-          />
+        {/* Ondas de energía animadas */}
+        <div className="absolute inset-0 rounded-full">
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/30 to-teal-400/30 animate-ping"></div>
+          <div className="absolute inset-2 rounded-full bg-gradient-to-r from-cyan-400/20 to-teal-400/20 animate-ping animation-delay-200"></div>
+          <div className="absolute inset-4 rounded-full bg-gradient-to-r from-cyan-400/10 to-teal-400/10 animate-ping animation-delay-500"></div>
+        </div>
+        
+        {/* Botón principal con gradiente y glassmorphism */}
+        <div className="relative w-16 h-16 bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-xl rounded-full flex items-center justify-center border border-cyan-400/30 shadow-2xl group-hover:shadow-cyan-400/20 transition-all duration-500 group-hover:scale-110">
+          {/* Brillo interno */}
+          <div className="absolute inset-1 rounded-full bg-gradient-to-br from-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          
+          {/* Icono con animación */}
+          <div className="relative z-10">
+            <Sparkles
+              size={24}
+              className="text-cyan-400 group-hover:text-cyan-300 transition-all duration-300 group-hover:rotate-12"
+            />
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-full opacity-75 group-hover:opacity-100 animate-pulse"></div>
+          </div>
         </div>
       </button>
+    </div>
 
       {/* Ventana del chat */}
       <div className={`floatWindow ${isOpen ? "visible" : ""}`}>

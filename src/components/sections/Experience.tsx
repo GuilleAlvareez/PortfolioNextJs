@@ -51,7 +51,7 @@ export default function Experience() {
       <div className={`text-center mb-20 space-y-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         {" "}
         {/* Más espacio abajo y entre elementos */}
-        <h2 id="experience-title" className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter">
+        <h2 id="experience-title" className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter leading-normal md:pb-2">
           Trayectoria
         </h2>
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">

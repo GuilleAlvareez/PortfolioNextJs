@@ -33,7 +33,7 @@ export default function Projects() {
       description:
         "Aplicación con IA para redactar y sugerir correos electrónicos personalizados, editables antes del envío automático. Proyecto principal que demuestra integración de inteligencia artificial con interfaces de usuario intuitivas.",
       tags: ["React", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL", "IA"],
-      link: "https://thunder-mail.vercel.app",
+      link: "https://github.com/GuilleAlvareez/ThunderMail.git",
       type: "featured",
     },
     {
@@ -42,6 +42,7 @@ export default function Projects() {
         "Aplicación web completa desarrollada como proyecto final del ciclo de Desarrollo de Aplicaciones Web, que permite a los usuario llevar un control de sus entrenamientos en el gimnasio.",
       tags: ["React", "Tailwind CSS", "Node.js", "Express", "PostgreSQL", "IA"],
       link: "https://github.com/guillealvarez",
+      linkCode: "https://github.com/guillealvarez",
       type: "regular",
     },
   ];
@@ -65,7 +66,7 @@ export default function Projects() {
         {/* Primer proyecto - Imagen a la derecha */}
         <div className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-16 group transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Info proyecto (lado izquierdo, más ancha) */}
-          <div className="flex-1 lg:max-w-3xl transform transition-all duration-500 group-hover:translate-x-2">
+          <div className="flex-1 lg:max-w-3xl transform transition-all duration-500">
             <div className="p-8 rounded-lg h-full">
               <div className="text-left">
                 <h4 className="text-4xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text mb-6 transition-all duration-300 tracking-tight">
@@ -98,7 +99,7 @@ export default function Projects() {
           </div>
 
           {/* Foto proyecto (lado derecho) */}
-          <div className="relative w-full ml-auto lg:w-[700px] h-[300px] lg:h-[350px] overflow-hidden rounded-xl border border-gray-700 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-400/20 bg-green-200 transform group-hover:scale-105 group-hover:-translate-x-2">
+          <div className="relative w-full ml-auto lg:w-[700px] h-[300px] lg:h-[350px] overflow-hidden rounded-xl border border-gray-700 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-400/20 bg-green-200 transform">
             <Image
               src="/ThunderMail.png"
               alt="ThunderMail"
@@ -114,7 +115,7 @@ export default function Projects() {
         {/* Segundo proyecto - Imagen a la izquierda */}
         <div className={`flex flex-col lg:flex-row-reverse items-center gap-8 lg:gap-16 group transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Info proyecto (lado derecho) */}
-          <div className="flex-1 lg:max-w-3xl lg:ml-5 transform transition-all duration-500 group-hover:-translate-x-2">
+          <div className="flex-1 lg:max-w-3xl lg:ml-5 transform transition-all duration-500">
             <div className="p-8 rounded-lg h-full">
               <div className="text-left">
                 <h4 className="text-4xl font-bold text-transparent bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text mb-6 transition-all duration-300 tracking-tight">
@@ -146,7 +147,7 @@ export default function Projects() {
             </div>
           </div>
 
-          <div className="relative w-full mr-auto lg:w-[700px] h-[300px] lg:h-[350px] overflow-hidden rounded-xl border border-gray-700  transition-all duration-500 hover:shadow-xl hover:shadow-cyan-400/20 bg-blue-200 transform group-hover:scale-105 group-hover:translate-x-2">
+          <div className="relative w-full mr-auto lg:w-[700px] h-[300px] lg:h-[350px] overflow-hidden rounded-xl border border-gray-700  transition-all duration-500 hover:shadow-xl hover:shadow-cyan-400/20 bg-blue-200 transform">
             <Image
               src="/ThunderMail.png"
               alt="PRzone"
@@ -159,7 +160,7 @@ export default function Projects() {
         </div>
       </div>
       
-      <div className={`text-center pt-16 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className={`text-center px-2 mt-12 md:mt-0 md:pt-16 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <a
           href="https://github.com/GuilleAlvareez"
           target="_blank"

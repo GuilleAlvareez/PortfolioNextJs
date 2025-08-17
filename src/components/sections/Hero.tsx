@@ -1,35 +1,36 @@
 "use client";
 import { useState, useEffect } from 'react';
+// Importa los iconos de lucide-react para un código más limpio
+import { Linkedin, Github } from 'lucide-react';
 
 export default function Hero() {
-  // Controla la animación de entrada del contenido
   const [isVisible, setIsVisible] = useState(false);
 
-  // Activa la animación de entrada al montar el componente
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   return (
     <section id="hero" className="relative flex flex-col items-center justify-center text-center h-full min-h-screen pt-16 overflow-hidden px-4 md:px-0" aria-labelledby="hero-title">
-      {/* Background Effects */}
+      {/* ... (tus efectos de fondo se mantienen igual) ... */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black" aria-hidden="true"/>
-      
-      {/* Bottom fade transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent z-20" aria-hidden="true"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,...')] opacity-20" aria-hidden="true"></div>
 
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDUpIiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDwvcGF0dGVybj4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPgo8L3N2Zz4=')] opacity-20" aria-hidden="true"></div>
-
-      {/* Main Content */}
-      <div className={`relative z-10 space-y-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* --- INICIO DE LA CORRECCIÓN --- */}
+      {/* 
+        Contenido principal. Le añadimos un padding inferior (pb-24) 
+        para asegurarnos de que siempre haya espacio para el indicador de scroll.
+      */}
+      <div className={`relative z-10 space-y-8 transition-all duration-1000 pb-24 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500/10 to-teal-500/10 border border-cyan-400/20 rounded-full px-4 py-2 text-sm text-cyan-300 backdrop-blur-sm" role="status" aria-live="polite">
           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" aria-hidden="true"></div>
           Disponible para nuevos proyectos
         </div>
 
-        {/* Name with enhanced styling */}
+        {/* Name */}
         <div className="space-y-4">
           <h1 id="hero-title" className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight">
             <span className="bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent drop-shadow-2xl">
@@ -40,20 +41,17 @@ export default function Hero() {
               Álvarez Moreno
             </span>
           </h1>
-
-          {/* Animated underline */}
           <div className="flex justify-center">
             <div className="h-1 w-32 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-full" aria-hidden="true"></div>
           </div>
         </div>
 
-        {/* Description with better spacing */}
+        {/* Description */}
         <div className="space-y-6 max-w-3xl mx-auto">
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 font-medium leading-relaxed">
             Desarrollador <span className="text-cyan-400 font-bold">Fullstack</span> especializado en{' '}
             <span className="text-teal-400 font-bold">React</span> y tecnologías web modernas
           </p>
-
           <p className="text-lg md:text-xl text-gray-400 leading-relaxed px-4">
             Apasionado por crear experiencias web <span className="text-cyan-300">modernas y fluidas</span>, 
             con interés en arquitecturas innovadoras como{' '}
@@ -61,8 +59,8 @@ export default function Hero() {
           </p>
         </div>
         
-        {/* Enhanced buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+        {/* Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="/CV.pdf" 
             download="Guillermo Álvarez Moreno - CV.pdf"
@@ -72,7 +70,6 @@ export default function Hero() {
             <span className="relative z-10">Descargar CV</span>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-teal-600 rounded-2xl blur opacity-0 group-hover:opacity-50 transition-all duration-300" aria-hidden="true"></div>
           </a>
-          
           <a
             href="#projects"
             className="group relative border-2 border-cyan-400 text-cyan-400 hover:text-gray-900 font-bold py-4 px-10 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-cyan-400 hover:to-teal-400 hover:border-transparent hover:shadow-xl hover:scale-105 transform backdrop-blur-sm"
@@ -82,8 +79,8 @@ export default function Hero() {
           </a>
         </div>
 
-        {/* Social links */}
-        <nav className="flex justify-center gap-6 mt-8" aria-label="Enlaces sociales">
+        {/* Social links - Se mantienen en el flujo normal del documento */}
+        <nav className="flex justify-center gap-6 pt-4" aria-label="Enlaces sociales">
           <a 
             href="https://www.linkedin.com/in/guillermo-%C3%A1lvarez-moreno-15904030a/" 
             target='_blank' 
@@ -95,7 +92,6 @@ export default function Hero() {
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
-          
           <a 
             href="https://github.com/GuilleAlvareez" 
             target='_blank' 
@@ -110,13 +106,17 @@ export default function Hero() {
         </nav>
       </div>
       
-      {/* Enhanced scroll indicator */}
+      {/* 
+        Indicador de scroll. 
+        Sigue siendo absoluto, pero el padding del contenedor padre le da espacio.
+      */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2" aria-hidden="true">
         <span className="text-xs text-gray-500 tracking-widest">SCROLL</span>
         <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center">
           <div className="w-1 h-3 bg-gradient-to-b from-cyan-400 to-transparent rounded-full mt-2 animate-bounce"></div>
         </div>
       </div>
+      {/* --- FIN DE LA CORRECCIÓN --- */}
     </section>
   );
 }
