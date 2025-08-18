@@ -68,7 +68,7 @@ export default function About() {
               </p>
               <p>
                 En <strong className="font-semibold text-teal-300">SURLABS</strong>, tuve la oportunidad de aplicar mis conocimientos en un entorno real, 
-                desarrollando plugins a medida para plataformas eLearning. Aprendí a transformar lo que el negocio necesita en soluciones técnicas que hacen más fácil y útil la experiencia para miles de usuarios, utilizando tecnologías modernas como React y Next.js.
+                desarrollando plugins a medida para plataformas eLearning. Aprendí a transformar lo que el negocio necesita en soluciones técnicas que hacen más fácil y útil la experiencia para miles de usuarios, utilizando tecnologías modernas como React y PHP.
               </p>
               <p>
                 Actualmente, mi foco está en el ecosistema de <strong className="font-semibold text-cyan-300">React</strong> y en explorar 
