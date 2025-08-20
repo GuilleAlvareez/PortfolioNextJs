@@ -71,7 +71,7 @@ export default function Projects() {
         <div className="flex justify-center mb-4">
           <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-full"></div>
         </div>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-400 text-lg max-w-2xl mx-auto px-3">
           Una selección de mis trabajos más destacados, desde aplicaciones con
           IA hasta soluciones web completas
         </p>

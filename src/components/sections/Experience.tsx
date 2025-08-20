@@ -54,7 +54,7 @@ export default function Experience() {
         <h2 id="experience-title" className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter leading-normal md:pb-2">
           Trayectoria
         </h2>
-        <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-3 leading-relaxed">
           Una combinación de formación académica sólida y experiencia práctica
           que define mi perfil como desarrollador fullstack en Sevilla.
         </p>

@@ -201,7 +201,7 @@ body {
   }
 }
 
-@media (max-width: 374px) {
+@media (max-width: 390px) {
   .floatWindow {
     width: calc(100vw - 0.5rem);
     bottom: 7rem;

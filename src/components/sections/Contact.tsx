@@ -85,13 +85,13 @@ export default function Contact() {
       href: 'https://github.com/GuilleAlvareez',
       description: 'Revisa mi código'
     },
-    {
-      icon: MessageCircle, // Icono genérico para WhatsApp
-      label: 'WhatsApp',
-      value: '+34 651 150 308',
-      href: 'https://wa.me/34651150308',
-      description: 'Para consultas rápidas'
-    }
+    // {
+    //   icon: MessageCircle, // Icono genérico para WhatsApp
+    //   label: 'WhatsApp',
+    //   value: '+34 651 150 308',
+    //   href: 'https://wa.me/34651150308',
+    //   description: 'Para consultas rápidas'
+    // }
   ];
 
   // Valida todos los campos del formulario antes del envío
