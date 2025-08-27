@@ -13,7 +13,7 @@
   "hero_description_main": "Fullstack Developer specialized in React and modern web technologies",
   "hero_description_secondary": "Passionate about creating modern and fluid web experiences, with interest in innovative architectures like Next.js to optimize performance.",
   "hero_download_cv": "Download CV",
-  "hero_view_projects": "View Projects",
+  "hero_view_projects": "Contact Me",
   "hero_scroll": "SCROLL",
   
   "about_title": "About Me",
@@ -138,5 +138,6 @@
   "contact_sending_status": "Sending message, please wait",
   "contact_guarantee_title": "Quick response guaranteed",
   "contact_guarantee_description": "I commit to responding to all messages within 24 hours. If it's urgent, don't hesitate to contact me via WhatsApp for an immediate response.",
-  "footer_copyright": "© 2025 Guillermo Álvarez Moreno. Built with Next.js and Tailwind CSS."
+  "footer_copyright": "© 2025 Guillermo Álvarez Moreno. Built with Next.js and Tailwind CSS.",
+  "chatbot_welcome": "Hello! I'm Guillermo's virtual assistant. How can I help you? You can ask me about his skills, projects, experience or anything related to him."
 }

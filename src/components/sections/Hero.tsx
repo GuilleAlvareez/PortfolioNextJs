@@ -1,11 +1,12 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useT } from '@/contexts/TranslationContext';
+import { useT, useTranslationContext } from '@/contexts/TranslationContext';
 // Importa los iconos de lucide-react para un código más limpio
 import { Linkedin, Github } from 'lucide-react';
 
 export default function Hero() {
   const t = useT();
+  const { language } = useTranslationContext();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -51,45 +52,32 @@ export default function Hero() {
         {/* Description */}
         <div className="space-y-6 max-w-3xl mx-auto">
           <p className="text-xl md:text-2xl lg:text-3xl text-gray-200 font-medium leading-relaxed">
-            {t('hero_description_main').split('Fullstack').map((part, index) => (
-              index === 0 ? (
-                <span key={index}>
-                  {part}<span className="text-cyan-400 font-bold">Fullstack</span>
-                </span>
-              ) : (
-                <span key={index}>
-                  {part.split('React').map((reactPart, reactIndex) => (
-                    reactIndex === 0 ? (
-                      <span key={reactIndex}>
-                        {reactPart}<span className="text-teal-400 font-bold">React</span>
-                      </span>
-                    ) : (
-                      <span key={reactIndex}>{reactPart}</span>
-                    )
-                  ))}
-                </span>
-              )
-            ))}
+            {language === 'es' ? (
+              <>
+                Desarrollador <span className="text-cyan-400 font-bold">Fullstack</span> especializado en{' '}
+                <span className="text-teal-400 font-bold">React</span> y tecnologías web modernas
+              </>
+            ) : (
+              <>
+                <span className="text-cyan-400 font-bold">Fullstack</span> Developer specialized in{' '}
+                <span className="text-teal-400 font-bold">React</span> and modern web technologies
+              </>
+            )}
           </p>
           <p className="text-lg md:text-xl text-gray-400 leading-relaxed px-4">
-            {t('hero_description_secondary').split('Next.js').map((part, index) => (
-              index === 0 ? (
-                <span key={index}>
-                  {part.split('modernas y fluidas').map((fluidPart, fluidIndex) => (
-                    fluidIndex === 0 ? (
-                      <span key={fluidIndex}>
-                        {fluidPart}<span className="text-cyan-300">modernas y fluidas</span>
-                      </span>
-                    ) : (
-                      <span key={fluidIndex}>{fluidPart}</span>
-                    )
-                  ))}
-                  <span className="text-teal-300 font-semibold">Next.js</span>
-                </span>
-              ) : (
-                <span key={index}>{part}</span>
-              )
-            ))}
+            {language === 'es' ? (
+              <>
+                Apasionado por crear experiencias web <span className="text-cyan-300">modernas y fluidas</span>,
+                con interés en arquitecturas innovadoras como{' '}
+                <span className="text-teal-300 font-semibold">Next.js</span> para optimizar rendimiento.
+              </>
+            ) : (
+              <>
+                Passionate about creating <span className="text-cyan-300">modern and fluid</span> web experiences,
+                with interest in innovative architectures like{' '}
+                <span className="text-teal-300 font-semibold">Next.js</span> to optimize performance.
+              </>
+            )}
           </p>
         </div>
         

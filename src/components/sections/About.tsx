@@ -48,9 +48,6 @@ export default function About() {
           <h2 id="about-title" className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4">
             {t('about_title')}
           </h2>
-          <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-            {t('about_subtitle')}
-          </p>
         </div>
 
         {/* Contenedor principal de dos columnas */}

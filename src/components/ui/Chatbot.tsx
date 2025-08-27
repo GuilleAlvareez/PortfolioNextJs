@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Bot, Sparkles } from "lucide-react";
+import { useT, useTranslationContext } from '@/contexts/TranslationContext';
 
 interface Message {
   id: number;
@@ -11,17 +12,12 @@ interface Message {
 }
 
 export default function Chatbot() {
+  const t = useT();
+  const { isLoading: translationsLoading, language } = useTranslationContext();
   // Controla si la ventana del chat está abierta o cerrada
   const [isOpen, setIsOpen] = useState(false);
   // Almacena todos los mensajes de la conversación
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      text: "¡Hola! Soy el asistente virtual de Guillermo. ¿En qué puedo ayudarte? Puedes preguntarme sobre sus habilidades, proyectos, experiencia o cualquier cosa relacionada el.",
-      sender: "bot",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   // Controla el valor del input de texto
   const [inputValue, setInputValue] = useState("");
   // Indica si se está enviando un mensaje
@@ -31,6 +27,7 @@ export default function Chatbot() {
   // Referencias para scroll automático y focus del input
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const welcomeInitialized = useRef(false);
 
   // Hace scroll automático al final de los mensajes
   const scrollToBottom = () => {
@@ -48,6 +45,42 @@ export default function Chatbot() {
       inputRef.current.focus();
     }
   }, [isOpen]);
+
+  // Inicializa el mensaje de bienvenida cuando las traducciones están listas
+  useEffect(() => {
+    const welcomeText = t('chatbot_welcome');
+    // Solo inicializar una vez cuando las traducciones están cargadas
+    if (!translationsLoading && !welcomeInitialized.current && welcomeText !== 'chatbot_welcome') {
+      setMessages([
+        {
+          id: 1,
+          text: welcomeText,
+          sender: "bot",
+          timestamp: new Date(),
+        },
+      ]);
+      welcomeInitialized.current = true;
+    }
+  }, [t, translationsLoading]);
+
+  // Actualiza el mensaje de bienvenida cuando cambia el idioma
+  useEffect(() => {
+    const welcomeText = t('chatbot_welcome');
+    if (welcomeInitialized.current && !translationsLoading && welcomeText !== 'chatbot_welcome') {
+      setMessages(prevMessages => {
+        if (prevMessages.length > 0 && prevMessages[0].sender === 'bot' && prevMessages[0].text !== welcomeText) {
+          return [
+            {
+              ...prevMessages[0],
+              text: welcomeText,
+            },
+            ...prevMessages.slice(1)
+          ];
+        }
+        return prevMessages;
+      });
+    }
+  }, [language, t, translationsLoading]);
 
   // Maneja el envío de mensajes del usuario y la respuesta del bot
   const handleSubmit = async (e: React.FormEvent) => {
@@ -306,3 +339,4 @@ export default function Chatbot() {
     </>
   );
 }
+
