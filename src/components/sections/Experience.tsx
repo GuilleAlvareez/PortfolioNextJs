@@ -1,8 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from 'react';
+import { useT } from '@/contexts/TranslationContext';
 
 export default function Experience() {
+  const t = useT();
+
   // Controla la animación de entrada de la sección
   const [isVisible, setIsVisible] = useState(false);
 
@@ -29,19 +32,17 @@ export default function Experience() {
   // Configuración de experiencias profesionales y educativas
   const experiences = [
     {
-      date: "Mar 2025 - Jun 2025",
-      title: "Fullstack Developer",
-      company: "SURLABS (Dos Hermanas)",
-      description:
-        "Desarrollo de plugins personalizados para la plataforma ILIAS, enfocado en mejorar la experiencia de aprendizaje en entornos eLearning. Trabajo en equipo con metodologías ágiles y enfoque en la calidad del código.",
+      date: t('experience_surlabs_date'),
+      title: t('experience_surlabs_title'),
+      company: t('experience_surlabs_company'),
+      description: t('experience_surlabs_description'),
       type: "work",
     },
     {
-      date: "Sep 2023 - Jun 2025",
-      title: "Desarrollo de Aplicaciones Web",
-      company: "IES Hermanos Machado",
-      description:
-        "Formación integral en desarrollo web fullstack, abarcando desde fundamentos de programación hasta tecnologías modernas como React, Django y bases de datos. Desarrollo de proyectos prácticos y colaborativos.",
+      date: t('experience_education_date'),
+      title: t('experience_education_title'),
+      company: t('experience_education_company'),
+      description: t('experience_education_description'),
       type: "education",
     },
   ];
@@ -52,11 +53,10 @@ export default function Experience() {
         {" "}
         {/* Más espacio abajo y entre elementos */}
         <h2 id="experience-title" className="text-5xl md:text-7xl font-black bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent tracking-tighter leading-normal md:pb-2">
-          Trayectoria
+          {t('experience_title')}
         </h2>
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-3 leading-relaxed">
-          Una combinación de formación académica sólida y experiencia práctica
-          que define mi perfil como desarrollador fullstack en Sevilla.
+          {t('experience_subtitle')}
         </p>
       </div>
       
@@ -134,7 +134,7 @@ export default function Experience() {
             />
             <div>
               <h3 className="text-2xl font-bold text-white">
-                Carta de Recomendación
+                {t('experience_recommendation_title')}
               </h3>
               <p className="text-lg text-cyan-400 font-semibold">SURLABS</p>
             </div>
@@ -143,9 +143,7 @@ export default function Experience() {
           {/* Cita y Autores */}
           <blockquote className="relative pl-6 border-l-2 border-accent mb-8">
             <p className="text-gray-200 text-lg italic leading-relaxed">
-              &ldquo;Recomendamos encarecidamente a Guillermo por su profesionalidad,
-              responsabilidad y compromiso. Destacamos su proactividad,
-              capacidad de trabajo en equipo y disposición para aprender.&rdquo;
+              &ldquo;{t('experience_recommendation_quote')}&rdquo;
             </p>
           </blockquote>
           <div className="flex flex-wrap gap-x-8 gap-y-2 mb-10 pl-6">
@@ -166,13 +164,13 @@ export default function Experience() {
           {/* Logros como lista de verificación */}
           <div className="space-y-4">
             <h4 className="text-xl font-bold text-white mb-4">
-              Logros Destacados:
+              {t('experience_achievements_title')}
             </h4>
             {[
-              "Dominio en frontend y backend con especial capacidad de análisis",
-              "Excelente integración y contribución positiva al equipo",
-              "Desarrollo de plugins personalizados para plataformas eLearning",
-              "Enfoque en mejorar la experiencia de usuario en entornos educativos",
+              t('experience_achievement_1'),
+              t('experience_achievement_2'),
+              t('experience_achievement_3'),
+              t('experience_achievement_4'),
             ].map((item, index) => (
               <div key={index} className="flex items-start gap-3">
                 <svg

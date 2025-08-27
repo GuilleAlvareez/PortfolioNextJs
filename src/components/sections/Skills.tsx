@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { BrainCircuit, Code, Server, Database, Bot, BotMessageSquare, Layers } from 'lucide-react';
+import { useT } from '@/contexts/TranslationContext';
 import 'devicon/devicon.min.css';
 
 type Category = 'IA' | 'Frontend' | 'Backend' | 'Base de Datos' | 'Frameworks';
@@ -48,6 +49,8 @@ const categoryIcons = {
 const categories: Category[] = ['Frontend', 'Backend', 'Frameworks', 'Base de Datos', 'IA'];
 
 export default function Skills() {
+  const t = useT();
+
   // Controla qué categoría de habilidades está actualmente seleccionada
   const [activeCategory, setActiveCategory] = useState<Category>('Frontend');
   // Controla la animación de entrada de la sección
@@ -73,6 +76,18 @@ export default function Skills() {
     return () => observer.disconnect();
   }, []);
 
+  // Función para traducir categorías
+  const translateCategory = (category: Category): string => {
+    const categoryMap: Record<Category, string> = {
+      'IA': t('skills_category_ai'),
+      'Frontend': t('skills_category_frontend'),
+      'Backend': t('skills_category_backend'),
+      'Base de Datos': t('skills_category_databases'),
+      'Frameworks': t('skills_category_frameworks'),
+    };
+    return categoryMap[category] || category;
+  };
+
   // Se ejecuta solo una vez para leer la categoría inicial desde la URL
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -94,10 +109,10 @@ export default function Skills() {
     <section id="skills" className="px-6 mt-16">
       <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4">
-          Habilidades Técnicas
+          {t('skills_title')}
         </h2>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          Un vistazo a las herramientas y tecnologías con las que construyo soluciones digitales.
+          {t('skills_subtitle')}
         </p>
       </div>
 
@@ -124,7 +139,7 @@ export default function Skills() {
                     }}
                   >
                     <Icon className={`w-6 h-6 flex-shrink-0 transition-colors ${isActive ? 'text-cyan-400' : 'text-gray-500'}`} />
-                    <span className="font-semibold text-lg">{category}</span>
+                    <span className="font-semibold text-lg">{translateCategory(category)}</span>
                   </button>
                 </li>
               );
@@ -163,7 +178,7 @@ export default function Skills() {
 
             {skillsData[activeCategory].length === 0 && (
               <div className="col-span-full text-center text-gray-500 p-8 animate-fade-in">
-                <p>Explorando activamente nuevas herramientas y tecnologías en esta área.</p>
+                <p>{t('skills_exploring_message')}</p>
               </div>
             )}
           </div>

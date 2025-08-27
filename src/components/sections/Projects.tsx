@@ -3,8 +3,11 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { HelpCircle } from "lucide-react";
 import Modal from "../ui/Modal";
+import { useT } from '@/contexts/TranslationContext';
 
 export default function Projects() {
+  const t = useT();
+
   // Controla la animación de entrada de la sección
   const [isVisible, setIsVisible] = useState(false);
   // Controla la visibilidad del modal explicativo
@@ -34,8 +37,7 @@ export default function Projects() {
   const projects = [
     {
       title: "ThunderMail",
-      description:
-        "Aplicación con IA para redactar y sugerir correos electrónicos personalizados, editables antes del envío automático. Proyecto principal que demuestra integración de inteligencia artificial con interfaces de usuario intuitivas.",
+      description: t('projects_thundermail_description'),
       tags: [
         "React",
         "TypeScript",
@@ -49,8 +51,7 @@ export default function Projects() {
     },
     {
       title: "PRzone",
-      description:
-        "Aplicación web completa desarrollada como proyecto final del ciclo de Desarrollo de Aplicaciones Web, que permite a los usuario llevar un control de sus entrenamientos en el gimnasio.",
+      description: t('projects_przone_description'),
       tags: ["React", "Tailwind CSS", "Node.js", "Express", "PostgreSQL", "IA"],
       link: "https://przone.vercel.app",
       linkCode: "https://github.com/guillealvarez",
@@ -66,14 +67,10 @@ export default function Projects() {
         }`}
       >
         <h2 className="h-24 text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent ">
-          Proyectos
+          {t('projects_title')}
         </h2>
-        <div className="flex justify-center mb-4">
-          <div className="h-1 w-24 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-full"></div>
-        </div>
         <p className="text-gray-400 text-lg max-w-2xl mx-auto px-3">
-          Una selección de mis trabajos más destacados, desde aplicaciones con
-          IA hasta soluciones web completas
+          {t('projects_subtitle')}
         </p>
       </div>
 
@@ -112,7 +109,7 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold text-base transition-all duration-300 hover:gap-3 group/link"
                   >
-                    Ver codigo  
+                    {t('projects_view_code')}
                     <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">
                       →
                     </span>
@@ -125,7 +122,7 @@ export default function Projects() {
                       className="text-gray-400 hover:text-cyan-400 transition-colors flex items-center gap-1 text-sm"
                     >
                       <HelpCircle size={16} />
-                      ¿Por qué no está desplegado?
+                      {t('projects_why_not_deployed')}
                     </button>
                   )}
                 </div>
@@ -180,7 +177,7 @@ export default function Projects() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold text-base transition-all duration-300 hover:gap-3 group/link"
                   >
-                    Ver proyecto
+                    {t('projects_view_demo')}
                     <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">
                       →
                     </span>
@@ -214,7 +211,7 @@ export default function Projects() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-3 text-cyan-400 hover:text-cyan-300 font-semibold transition-all duration-300 text-lg hover:gap-4 group bg-gradient-to-r from-gray-800/50 to-gray-700/50 px-6 py-3 rounded-full border border-gray-600 hover:border-cyan-400 hover:shadow-lg hover:shadow-cyan-400/20"
         >
-          Ver todos mis proyectos en GitHub
+          {t('projects_view_all_github')}
           <span className="transform transition-transform duration-300 group-hover:translate-x-1">
             →
           </span>
@@ -225,29 +222,16 @@ export default function Projects() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="¿Por qué este proyecto no está desplegado?"
+        title={t('projects_modal_title')}
       >
         <div className="space-y-4 text-gray-300">
+          <p className="leading-relaxed" dangerouslySetInnerHTML={{ __html: t('projects_modal_paragraph_1') }} />
           <p className="leading-relaxed">
-            Este proyecto,{" "}
-            <span className="text-cyan-400 font-semibold">ThunderMail</span>,
-            incluye una funcionalidad de backend diseñada para que los usuarios
-            puedan enviar correos electrónicos generados por IA directamente
-            desde la aplicación.
-          </p>
-          <p className="leading-relaxed">
-            Durante el desarrollo, identifiqué un conflicto fundamental entre la
-            flexibilidad que quería ofrecer y las prácticas de seguridad
-            estándar. La versión inicial permitía que el campo del remitente
-            (from) fuera definido por el usuario. Sin embargo, esto crea una
-            grave vulnerabilidad de seguridad conocida como suplantación de
-            identidad (email spoofing), que permitiría a un usuario
-            malintencionado enviar correos haciéndose pasar por otra persona.
+            {t('projects_modal_paragraph_2')}
           </p>
           <div className="mt-6 p-4 bg-gray-800 rounded-lg border border-gray-700">
             <p className="text-cyan-400 font-medium mb-2">
-              ¡Te invito a explorar el código fuente completo para ver la
-              implementación en detalle!
+              {t('projects_modal_invitation')}
             </p>
             <a
               href="https://github.com/GuilleAlvareez/ThunderMail.git"
@@ -255,7 +239,7 @@ export default function Projects() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-semibold transition-all duration-300 hover:gap-3 group/link"
             >
-              Ver en GitHub
+              {t('projects_modal_view_github')}
               <span className="transform transition-transform duration-300 group-hover/link:translate-x-1">
                 →
               </span>

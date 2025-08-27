@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 // Importación de iconos de lucide-react
 import { Mail, Linkedin, Github, MessageCircle, User, MessageSquare, Send, CheckCircle, X } from 'lucide-react';
+import { useT } from '@/contexts/TranslationContext';
 
 interface FormErrors {
   name?: string;
@@ -11,6 +12,8 @@ interface FormErrors {
 }
 
 export default function Contact() {
+  const t = useT();
+
   // Estado del formulario de contacto
   const [formData, setFormData] = useState({
     name: '',
@@ -69,21 +72,21 @@ export default function Contact() {
       label: 'Email',
       value: 'guillealvarezmoreno2@gmail.com',
       href: 'mailto:guillealvarezmoreno2@gmail.com',
-      description: 'Respondo en 24 horas'
+      description: t('contact_email_description')
     },
     {
       icon: Linkedin,
       label: 'LinkedIn',
       value: 'Guillermo Álvarez Moreno',
       href: 'https://www.linkedin.com/in/guillermo-%C3%A1lvarez-moreno-15904030a/',
-      description: 'Conectemos profesionalmente'
+      description: t('contact_linkedin_description')
     },
     {
       icon: Github,
       label: 'GitHub',
       value: '@GuilleAlvareez',
       href: 'https://github.com/GuilleAlvareez',
-      description: 'Revisa mi código'
+      description: t('contact_github_description')
     },
     // {
     //   icon: MessageCircle, // Icono genérico para WhatsApp
@@ -99,23 +102,23 @@ export default function Contact() {
     const newErrors: FormErrors = {};
 
     if (!formData.name.trim()) {
-      newErrors.name = 'El nombre es requerido';
+      newErrors.name = t('contact_name_required');
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = 'El email es requerido';
+      newErrors.email = t('contact_email_required');
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'El email no es válido';
+      newErrors.email = t('contact_email_invalid');
     }
 
     if (!formData.subject.trim()) {
-      newErrors.subject = 'El asunto es requerido';
+      newErrors.subject = t('contact_subject_required');
     }
 
     if (!formData.message.trim()) {
-      newErrors.message = 'El mensaje es requerido';
+      newErrors.message = t('contact_message_required');
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'El mensaje debe tener al menos 10 caracteres';
+      newErrors.message = t('contact_message_min_length');
     }
 
     setErrors(newErrors);
@@ -160,11 +163,11 @@ export default function Contact() {
       });
 
       if (!response.ok) {
-        throw new Error('Error al enviar el mensaje');
+        throw new Error(t('contact_error'));
       }
 
       // Mostrar notificación de éxito
-      showNotificationMessage('¡Mensaje enviado correctamente! Te responderé en menos de 24 horas.', 'success');
+      showNotificationMessage(t('contact_success'), 'success');
 
       // Limpiar formulario después del envío exitoso
       setFormData({
@@ -175,7 +178,7 @@ export default function Contact() {
       });
     } catch (error) {
       console.error('Error enviando formulario:', error);
-      showNotificationMessage('Error al enviar el mensaje. Por favor, inténtalo de nuevo.', 'error');
+      showNotificationMessage(t('contact_error'), 'error');
     } finally {
       setIsSubmitting(false);
     }
@@ -210,7 +213,7 @@ export default function Contact() {
             <button
               onClick={() => setShowNotification(false)}
               className="flex-shrink-0 text-gray-300 hover:text-white transition-colors"
-              aria-label="Cerrar notificación"
+              aria-label={t('contact_close_notification')}
             >
               <X className="w-4 h-4" aria-hidden="true" />
             </button>
@@ -220,19 +223,17 @@ export default function Contact() {
       <div className="relative">
         <div className={`text-center space-y-6 mb-7 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <h2 id="contact-title" className="text-4xl md:text-6xl font-black bg-gradient-to-r from-white via-cyan-200 to-teal-300 bg-clip-text text-transparent mb-4 leading-normal md:pb-2">
-            ¿Tienes un proyecto en mente?
+            {t('contact_title')}
           </h2>
-          <p className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto">
-            Estoy abierto a nuevas oportunidades laborales, colaboraciones en proyectos
-            interesantes o simplemente charlar sobre tecnología y desarrollo web.
-            ¡No dudes en contactarme desde Sevilla o cualquier parte del mundo!
+          <p className="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto">
+            {t('contact_description')}
           </p>
         </div>
 
         <div className={`grid grid-cols-1 xl:grid-cols-2 gap-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           {/* Métodos de contacto directo */}
           <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-cyan-300 mb-6">Contacto directo</h3>
+            <h3 className="text-xl font-semibold text-cyan-300 mb-6">{t('contact_direct_title')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {contactMethods.map((method, index) => {
                 const IconComponent = method.icon;
@@ -269,13 +270,13 @@ export default function Contact() {
 
           {/* Formulario de contacto */}
           <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-cyan-300 mb-6">Envíame un mensaje</h3>
+            <h3 className="text-xl font-semibold text-cyan-300 mb-6">{t('contact_form_title')}</h3>
             <form onSubmit={handleSubmit} className="space-y-6" aria-labelledby="contact-form-title">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
                     <User className="inline w-4 h-4 mr-2" aria-hidden="true" />
-                    Nombre *
+                    {t('contact_name')} *
                   </label>
                   <input
                     type="text"
@@ -286,7 +287,7 @@ export default function Contact() {
                     className={`w-full px-4 py-3 bg-gray-800/50 backdrop-blur-sm border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all ${
                       errors.name ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
                     }`}
-                    placeholder="Tu nombre completo"
+                    placeholder={t('contact_name_placeholder')}
                     aria-describedby={errors.name ? 'name-error' : undefined}
                     aria-invalid={!!errors.name}
                     required
@@ -297,7 +298,7 @@ export default function Contact() {
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
                     <Mail className="inline w-4 h-4 mr-2" aria-hidden="true" />
-                    Email *
+                    {t('contact_email')} *
                   </label>
                   <input
                     type="email"
@@ -308,7 +309,7 @@ export default function Contact() {
                     className={`w-full px-4 py-3 bg-gray-800/50 backdrop-blur-sm border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all ${
                       errors.email ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
                     }`}
-                    placeholder="tu@email.com"
+                    placeholder={t('contact_email_placeholder')}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                     aria-invalid={!!errors.email}
                     required
@@ -320,7 +321,7 @@ export default function Contact() {
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-200 mb-2">
                   <MessageSquare className="inline w-4 h-4 mr-2" aria-hidden="true" />
-                  Asunto *
+                  {t('contact_subject')} *
                 </label>
                 <input
                   type="text"
@@ -331,7 +332,7 @@ export default function Contact() {
                   className={`w-full px-4 py-3 bg-gray-800/50 backdrop-blur-sm border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all ${
                     errors.subject ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
                   }`}
-                  placeholder="¿De qué quieres hablar?"
+                  placeholder={t('contact_subject_placeholder')}
                   aria-describedby={errors.subject ? 'subject-error' : undefined}
                   aria-invalid={!!errors.subject}
                   required
@@ -342,7 +343,7 @@ export default function Contact() {
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-200 mb-2">
                   <MessageSquare className="inline w-4 h-4 mr-2" aria-hidden="true" />
-                  Mensaje *
+                  {t('contact_message')} *
                 </label>
                 <textarea
                   id="message"
@@ -353,13 +354,13 @@ export default function Contact() {
                   className={`w-full px-4 py-3 bg-gray-800/50 backdrop-blur-sm border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all resize-none ${
                     errors.message ? 'border-red-500' : 'border-gray-600 hover:border-gray-500'
                   }`}
-                  placeholder="Cuéntame sobre tu proyecto, idea o cualquier consulta que tengas..."
+                  placeholder={t('contact_message_placeholder')}
                   aria-describedby={errors.message ? 'message-error' : 'message-help'}
                   aria-invalid={!!errors.message}
                   required
                 />
                 {errors.message && <p id="message-error" className="text-red-400 text-sm mt-1" role="alert">{errors.message}</p>}
-                <p id="message-help" className="text-gray-400 text-xs mt-1">Mínimo 10 caracteres</p>
+                <p id="message-help" className="text-gray-400 text-xs mt-1">{t('contact_message_help')}</p>
               </div>
 
               <button
@@ -371,13 +372,13 @@ export default function Contact() {
                 {isSubmitting ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" aria-hidden="true"></div>
-                    <span>Enviando...</span>
-                    <span id="submitting-status" className="sr-only">Enviando mensaje, por favor espera</span>
+                    <span>{t('contact_sending')}</span>
+                    <span id="submitting-status" className="sr-only">{t('contact_sending_status')}</span>
                   </>
                 ) : (
                   <>
                     <Send className="w-5 h-5" aria-hidden="true" />
-                    <span>Enviar mensaje</span>
+                    <span>{t('contact_send')}</span>
                   </>
                 )}
               </button>
@@ -388,18 +389,17 @@ export default function Contact() {
         <div className={`bg-gradient-to-r from-cyan-500/10 to-teal-500/10 backdrop-blur-sm rounded-lg p-8 border mt-12 border-cyan-400/20 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="text-center space-y-4">
             <h4 className="text-lg font-semibold text-cyan-300">
-              <span aria-hidden="true">💡</span> Respuesta rápida garantizada
+              <span aria-hidden="true">💡</span> {t('contact_guarantee_title')}
             </h4>
             <p className="text-gray-300 text-sm">
-              Me comprometo a responder todos los mensajes en menos de 24 horas. 
-              Si es urgente, no dudes en contactarme por WhatsApp para una respuesta inmediata.
+              {t('contact_guarantee_description')}
             </p>
           </div>
         </div>
 
         <footer className={`text-center pt-8 border-t border-gray-700 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <p className="text-gray-400 text-sm">
-            © 2025 Guillermo Álvarez Moreno. Desarrollado con Next.js y Tailwind CSS.
+            {t('footer_copyright')}
           </p>
         </footer>
       </div>

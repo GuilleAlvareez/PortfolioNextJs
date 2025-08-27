@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Analytics } from '@vercel/analytics/react';
 import Chatbot from '@/components/ui/Chatbot';
+import { TranslationProvider } from '@/contexts/TranslationContext';
 
 // Configuración de la fuente Inter con variable CSS para optimización
 const inter = Inter({
@@ -148,11 +149,13 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-gray-900 text-gray-100 antialiased">
-        {children}
-        {/* Analytics de Vercel para tracking de métricas */}
-        <Analytics />
-        {/* Chatbot flotante disponible en toda la aplicación */}
-        <Chatbot />
+        <TranslationProvider>
+          {children}
+          {/* Analytics de Vercel para tracking de métricas */}
+          <Analytics />
+          {/* Chatbot flotante disponible en toda la aplicación */}
+          <Chatbot />
+        </TranslationProvider>
       </body>
     </html>
   )
