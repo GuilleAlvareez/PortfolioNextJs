@@ -92,7 +92,7 @@ export default function NavBar() {
       role="navigation"
       aria-label="Navegación principal"
     >
-      <div className="max-w-4xl mx-auto flex justify-between items-center p-4">
+      <div className="max-w-5xl mx-auto flex justify-between items-center p-4">
         {/* Logo/Name */}
         <a 
           href="#hero" 
