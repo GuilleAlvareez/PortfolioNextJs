@@ -139,5 +139,7 @@
   "contact_guarantee_title": "Quick response guaranteed",
   "contact_guarantee_description": "I commit to responding to all messages within 24 hours. If it's urgent, don't hesitate to contact me via WhatsApp for an immediate response.",
   "footer_copyright": "© 2025 Guillermo Álvarez Moreno. Built with Next.js and Tailwind CSS.",
-  "chatbot_welcome": "Hello! I'm Guillermo's virtual assistant. How can I help you? You can ask me about his skills, projects, experience or anything related to him."
+  "chatbot_welcome": "Hello! I'm Guillermo's virtual assistant. How can I help you? You can ask me about his skills, projects, experience or anything related to him.",
+
+  "projects_studyapp_description": "An academic productivity tool that uses AI to generate automatic summaries and visual QuickNotes from reading material. It offers a complete solution for students, allowing document management and the export of study materials in seconds."
 }
