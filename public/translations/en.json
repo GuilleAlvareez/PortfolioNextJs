@@ -102,6 +102,10 @@
   "experience_surlabs_title": "Fullstack Developer",
   "experience_surlabs_company": "SURLABS (Dos Hermanas)",
   "experience_surlabs_description": "Development of custom plugins for the ILIAS platform, focused on improving the learning experience in eLearning environments. Teamwork with agile methodologies and focus on code quality.",
+  "experience_mollitiam_date": "Sep 2023 - Jan 2025",
+  "experience_mollitiam_title": "Fullstack Developer",
+  "experience_mollitiam_company": "Mollitiam Industries (Spain)",
+  "experience_mollitiam_description": "Improved web application load time by 10% through resource optimization and image size reduction. Implemented an interactive dashboard system that enabled the marketing team to visualize key metrics in real time.",
   "experience_education_date": "Sep 2023 - Jun 2025",
   "experience_education_title": "Web Application Development",
   "experience_education_company": "IES Hermanos Machado",
@@ -113,6 +117,7 @@
   "experience_achievement_2": "Excellent integration and positive contribution to the team",
   "experience_achievement_3": "Development of custom plugins for eLearning platforms",
   "experience_achievement_4": "Focus on improving user experience in educational environments",
+  "experience_download_recommendation": "Download full letter",
 
   "skills_category_ai": "AI",
   "skills_category_frontend": "Frontend",
